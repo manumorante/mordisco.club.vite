@@ -10,7 +10,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
-        <Route path='/photos' element={<Photos />} />
+        <Route path='/album/:albumParam' element={<Photos />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
