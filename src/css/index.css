@@ -20,10 +20,10 @@ body {
 
 .loading {
   @apply rounded-full
-  w-12 h-12
-  opacity-50
+  w-8 h-8
   relative
-  bg-sky-900;
+  bg-sky-900
+  mix-blend-exclusion;
 }
 
 .loading:before,
@@ -43,4 +43,16 @@ body {
 
 .loading:before {
   @apply animate-wiggle-r;
+}
+
+.Photos {
+  @apply h-full;
+}
+
+.modal-is-open .Photos {
+  @apply overflow-hidden;
+}
+
+.aspect-attr {
+  aspect-ratio: attr(width) / attr(height);
 }

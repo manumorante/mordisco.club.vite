@@ -1,78 +1,92 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import Gallery from 'react-photo-gallery'
-import Carousel, { Modal, ModalGateway } from 'react-images'
+import { setUrl } from '../js/tools'
+import Gallery from '../components/Gallery'
+import Photo from '../components/Photo'
 import Loading from '../components/Loading'
+import Modal from '../components/Modal'
 import { data } from '../../data'
 
 export default function Photos() {
   const { albumParam, photoParam } = useParams()
-  const [currentImage, setCurrentImage] = useState(false)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
+  const [currentPhoto, setCurrentPhoto] = useState({})
   const [photos, setPhotos] = useState([])
 
-  useEffect(() => {
-    const validAlbum = (value, max) => {
-      if (isNaN(value)) return 0
-      if (value < 0) return 0
-      if (value >= max) return max - 1
-      return value
+  // Esta funcion es para llmar a setCurrentPhoto con ajustes
+  function handleSetCurrentPhoto(pos) {
+    const newPhoto = photos[pos]
+    const newCurrentPhoto = {
+      pos: pos,
+      src: newPhoto.src,
+      width: newPhoto.width,
+      height: newPhoto.height,
     }
-
-    const validPhoto = (value, max) => {
-      if (isNaN(value)) return -1
-      if (value >= max) return max - 1
-      return value
-    }
-
-    closeLightbox()
-
-    // Set the album
-    const totalAlbums = data.length
-    const albumPos = validAlbum(albumParam, totalAlbums)
-    const album = data[albumPos]
-    setPhotos(album.photos)
-
-    // Show photo?
-    const totalPhotos = album.photos.length
-    const photoPos = validPhoto(photoParam, totalPhotos)
-
-    if (photoPos >= 0) {
-      setCurrentImage(photoPos)
-      setViewerIsOpen(true)
-    }
-  }, [])
-
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index)
+    setCurrentPhoto(newCurrentPhoto)
     setViewerIsOpen(true)
-    window.history.pushState(null, null, `/photos/${albumParam}/${index}`)
-  }, [])
-
-  const closeLightbox = () => {
-    setCurrentImage(false)
-    setViewerIsOpen(false)
+    setUrl(albumParam, pos)
   }
 
-  if (!photos) return <Loading />
+  const nextPhoto = () => {
+    const pos = Number(currentPhoto.pos) + 1
+    handleSetCurrentPhoto(pos)
+  }
+
+  const prevPhoto = () => {
+    const pos = Number(currentPhoto.pos) - 1
+    handleSetCurrentPhoto(pos)
+  }
+
+  // Open
+  const openPhoto = (photo) => {
+    setCurrentPhoto(photo)
+    setViewerIsOpen(true)
+    setUrl(albumParam, photo.pos)
+  }
+
+  // Close
+  const closePhoto = () => {
+    setCurrentPhoto({})
+    setViewerIsOpen(false)
+    setUrl(albumParam)
+  }
+
+  // Data -> setPhotos
+  useEffect(() => {
+    if (!data || data.length === 0 || isNaN(albumParam)) return
+
+    setPhotos(data[albumParam].photos)
+  }, [data, albumParam])
+
+  // Photos -> setCurrentPhoto
+  useEffect(() => {
+    if (!photos || photos.length === 0 || isNaN(photoParam)) return
+
+    handleSetCurrentPhoto(photoParam)
+  }, [photos, photoParam])
+
+  // Keybindings
+  useEffect(() => {
+    if (!currentPhoto || currentPhoto == {}) return
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') closePhoto()
+      if (event.key === 'ArrowRight') nextPhoto()
+      if (event.key === 'ArrowLeft') prevPhoto()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [currentPhoto])
+
+  if (photos.length <= 0) return <Loading />
 
   return (
-    <div className='Photos h-full'>
-      <Gallery photos={photos} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map((x) => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title,
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
+    <div className='Photos'>
+      <Gallery photos={photos} onClick={openPhoto} />
+      <Modal visible={viewerIsOpen} onClose={closePhoto}>
+        <Photo photo={currentPhoto} />
+      </Modal>
     </div>
   )
 }
