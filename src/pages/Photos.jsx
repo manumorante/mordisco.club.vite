@@ -2,62 +2,69 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Gallery from 'react-photo-gallery'
 import Carousel, { Modal, ModalGateway } from 'react-images'
+import Loading from '../components/Loading'
 import { data } from '../../data'
-import Logo from '../components/Logo'
-import coverImg from '../img/mordisco-club-people.jpg'
 
 export default function Photos() {
-  const { albumParam } = useParams()
-  const [currentImage, setCurrentImage] = useState(0)
+  const { albumParam, photoParam } = useParams()
+  const [currentImage, setCurrentImage] = useState(false)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
-  const [album, setAlbum] = useState()
+  const [photos, setPhotos] = useState([])
 
   useEffect(() => {
-    let albumData
-    try {
-      albumData = data[albumParam]
-    } catch (error) {
-      console.log(error)
-      return false
+    const validAlbum = (value, max) => {
+      if (isNaN(value)) return 0
+      if (value < 0) return 0
+      if (value >= max) return max - 1
+      return value
     }
 
-    setAlbum(albumData)
-  }, [albumParam])
+    const validPhoto = (value, max) => {
+      if (isNaN(value)) return -1
+      if (value >= max) return max - 1
+      return value
+    }
+
+    closeLightbox()
+
+    // Set the album
+    const totalAlbums = data.length
+    const albumPos = validAlbum(albumParam, totalAlbums)
+    const album = data[albumPos]
+    setPhotos(album.photos)
+
+    // Show photo?
+    const totalPhotos = album.photos.length
+    const photoPos = validPhoto(photoParam, totalPhotos)
+
+    if (photoPos >= 0) {
+      setCurrentImage(photoPos)
+      setViewerIsOpen(true)
+    }
+  }, [])
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
+    window.history.pushState(null, null, `/photos/${albumParam}/${index}`)
   }, [])
 
   const closeLightbox = () => {
-    setCurrentImage(0)
+    setCurrentImage(false)
     setViewerIsOpen(false)
   }
 
-  if (!album) return <div>Loading ...</div>
+  if (!photos) return <Loading />
 
   return (
     <div className='Photos h-full'>
-      <div className='relative z-20 w-full h-full flex items-center justify-center'>
-        <Logo />
-      </div>
-
-      <div className='Overlay absolute inset-0 z-10 bg-black opacity-50'></div>
-
-      <div className='Cover absolute inset-0 z-0'>
-        <img
-          className='w-full h-full object-cover'
-          src={coverImg}
-          alt='People'
-        />
-      </div>
-      <Gallery photos={album} onClick={openLightbox} />
+      <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={album.map((x) => ({
+              views={photos.map((x) => ({
                 ...x,
                 srcset: x.srcSet,
                 caption: x.title,

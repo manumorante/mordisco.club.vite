@@ -17,3 +17,30 @@ body {
 .Logo {
   font-family: 'Krona One', sans-serif;
 }
+
+.loading {
+  @apply rounded-full
+  w-12 h-12
+  opacity-50
+  relative
+  bg-sky-900;
+}
+
+.loading:before,
+.loading:after {
+  @apply content-['']
+	absolute
+  inset-0
+  z-0
+  rounded-full
+  bg-pink-500
+  mix-blend-screen;
+}
+
+.loading:after {
+  @apply bg-sky-400 animate-wiggle-l;
+}
+
+.loading:before {
+  @apply animate-wiggle-r;
+}
