@@ -5,7 +5,7 @@ export default function Modal({ children, visible, onClose }) {
 
   return (
     visible && (
-      <div className='Modal fixed inset-0 p-6 backdrop-grayscale  grid place-content-center'>
+      <div className='Modal fixed inset-0 p-1 sm:p-6 backdrop-grayscale  grid place-content-center'>
         <div className='z-10 shadow-2xl shadow-black'>{children}</div>
         <div className='bg-black/60 fixed z-0 inset-0' onClick={onClose}></div>
       </div>

@@ -16,7 +16,7 @@ export default function Photo({ photo } = { src: '', width: 3, height: 2 }) {
       style={{ aspectRatio: `${photo.width} / ${photo.height}` }}>
       {loading && <Loading />}
       <img
-        className='rounded-sm object-scale-down'
+        className='rounded-sm object-scale-down hover:outline hover:outline-1 hover:outline-pink-500 transition-all'
         src={photo.src}
         onLoad={() => setLoading(false)}
       />

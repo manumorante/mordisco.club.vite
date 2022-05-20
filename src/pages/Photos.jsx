@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { setUrl } from '../js/tools'
+import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
 import Photo from '../components/Photo'
 import Loading from '../components/Loading'
@@ -83,10 +84,18 @@ export default function Photos() {
 
   return (
     <div className='Photos'>
+      <div className='p-12 flex justify-center mx-auto'>
+        <Logo />
+      </div>
+
       <Gallery photos={photos} onClick={openPhoto} />
       <Modal visible={viewerIsOpen} onClose={closePhoto}>
         <Photo photo={currentPhoto} />
       </Modal>
+
+      <div className='p-12 flex justify-center mx-auto'>
+        <Logo />
+      </div>
     </div>
   )
 }
