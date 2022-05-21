@@ -16,8 +16,8 @@ export default function Modal({ children, isOpen, dispatch }) {
 
   return (
     isOpen && (
-      <div className='Modal fixed inset-0 p-1 sm:p-6 backdrop-grayscale grid place-content-center'>
-        <div className='z-10 shadow-2xl shadow-black'>{children}</div>
+      <div className='Modal fixed z-30 inset-0 p-1 sm:p-6 backdrop-grayscale grid place-content-center'>
+        {children}
         <div
           className='bg-black/60 fixed z-0 inset-0'
           onClick={() => {

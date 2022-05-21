@@ -7,7 +7,7 @@ export default function Gallery({ album, dispatch }) {
       {album.photos.map((photo, index) => (
         <div
           key={`g-${index}`}
-          className='w-full h-auto cursor-pointer md:hover:outline md:hover:outline-1 md:hover:outline-pink-500 transition-all'
+          className='w-full h-auto cursor-pointer rounded-sm md:hover:outline md:hover:outline-1 md:hover:outline-pink-500 transition-all'
           onClick={() => {
             dispatch({ type: 'SET_PHOTO', photoIndex: index })
           }}>

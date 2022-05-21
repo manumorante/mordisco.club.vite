@@ -1,9 +1,9 @@
 {
-  "created_at": "2022-05-21T11:47:25.023Z",
+  "created_at": "2022-05-21T14:15:22.850Z",
   "albums": [
     {
-      "created_at": "2022-05-21T11:47:25.023Z",
-      "path": "data/albums/2022-03-05",
+      "created_at": "2022-05-21T14:15:22.850Z",
+      "path": "/data/albums/2022-03-05",
       "photos": [
         {
           "file": "_MG_1450.JPG",
@@ -330,17 +330,6 @@
           "width": 3000,
           "height": 2000
         },
-        {
-          "file": "_MG_1669.JPG",
-          "width": 3000,
-          "height": 2000
-        }
-      ]
-    },
-    {
-      "created_at": "2022-05-21T11:47:25.023Z",
-      "path": "data/albums/otro",
-      "photos": [
         {
           "file": "_MG_1669.JPG",
           "width": 3000,

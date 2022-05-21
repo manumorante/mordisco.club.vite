@@ -5,6 +5,7 @@ import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
 import Photo from '../components/Photo'
 import Modal from '../components/Modal'
+import Albums from '../components/Albums'
 
 export default function Photos() {
   const { state, dispatch } = useApiContext()
@@ -25,25 +26,7 @@ export default function Photos() {
         <Logo />
       </div>
 
-      {state.hasAlbums && (
-        <div>
-          <h4>Albums</h4>
-
-          <nav>
-            {state.albums.map((album, index) => (
-              <div
-                key={`a-${index}`}
-                className='text-white cursor-pointer p-2'
-                onClick={() => {
-                  dispatch({ type: 'SELECT', albumIndex: index })
-                }}>
-                {album.path}
-              </div>
-            ))}
-          </nav>
-        </div>
-      )}
-
+      {/* {state.hasAlbums && <Albums dispatch={dispatch} albums={state.albums} />} */}
       {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, createContext, useReducer } from 'react'
 import { initialState, reducer } from '../js/reducer'
 
-import data from '/data/albums.json'
+import data from '/public/data/albums.json'
 
 const apiContext = createContext()
 

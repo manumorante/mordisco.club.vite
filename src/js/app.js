@@ -9,12 +9,12 @@ let DATA = {
   albums: [],
 }
 
-const albums_path = 'data/albums'
+const albums_path = 'public/data/albums'
 
 function createAlbum(path) {
   let album = {
     created_at: TODAY,
-    path: path,
+    path: path.substring(6),
     photos: [],
   }
 
@@ -44,4 +44,4 @@ function getAlbums() {
 }
 
 const albums = getAlbums()
-fs.writeFileSync('data/albums.json', JSON.stringify(albums, null, 2))
+fs.writeFileSync('public/data/albums.json', JSON.stringify(albums, null, 2))
