@@ -1,86 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { setUrl } from '../js/tools'
+import { useApiContext } from '../context/ApiContext'
 import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
 import Photo from '../components/Photo'
-import Loading from '../components/Loading'
 import Modal from '../components/Modal'
-import { data } from '../../data'
 
 export default function Photos() {
+  const { state, dispatch } = useApiContext()
   const { albumParam, photoParam } = useParams()
-  const [viewerIsOpen, setViewerIsOpen] = useState(false)
-  const [currentPhoto, setCurrentPhoto] = useState({})
-  const [photos, setPhotos] = useState([])
 
-  // Esta funcion es para llmar a setCurrentPhoto con ajustes
-  function handleSetCurrentPhoto(pos) {
-    const newPhoto = photos[pos]
-    const newCurrentPhoto = {
-      pos: pos,
-      src: newPhoto.src,
-      width: newPhoto.width,
-      height: newPhoto.height,
-    }
-    setCurrentPhoto(newCurrentPhoto)
-    setViewerIsOpen(true)
-    setUrl(albumParam, pos)
-  }
-
-  const nextPhoto = () => {
-    const pos = Number(currentPhoto.pos) + 1
-    handleSetCurrentPhoto(pos)
-  }
-
-  const prevPhoto = () => {
-    const pos = Number(currentPhoto.pos) - 1
-    handleSetCurrentPhoto(pos)
-  }
-
-  // Open
-  const openPhoto = (photo) => {
-    setCurrentPhoto(photo)
-    setViewerIsOpen(true)
-    setUrl(albumParam, photo.pos)
-  }
-
-  // Close
-  const closePhoto = () => {
-    setCurrentPhoto({})
-    setViewerIsOpen(false)
-    setUrl(albumParam)
-  }
-
-  // Data -> setPhotos
   useEffect(() => {
-    if (!data || data.length === 0 || isNaN(albumParam)) return
-
-    setPhotos(data[albumParam].photos)
-  }, [data, albumParam])
-
-  // Photos -> setCurrentPhoto
-  useEffect(() => {
-    if (!photos || photos.length === 0 || isNaN(photoParam)) return
-
-    handleSetCurrentPhoto(photoParam)
-  }, [photos, photoParam])
-
-  // Keybindings
-  useEffect(() => {
-    if (!currentPhoto || currentPhoto == {}) return
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') closePhoto()
-      if (event.key === 'ArrowRight') nextPhoto()
-      if (event.key === 'ArrowLeft') prevPhoto()
-    }
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [currentPhoto])
-
-  if (photos.length <= 0) return <Loading />
+    if (!state.hasAlbums) return
+    dispatch({
+      type: 'SELECT',
+      albumIndex: albumParam,
+      photoIndex: photoParam,
+    })
+  }, [state.hasAlbums])
 
   return (
     <div className='Photos'>
@@ -88,9 +25,31 @@ export default function Photos() {
         <Logo />
       </div>
 
-      <Gallery photos={photos} onClick={openPhoto} />
-      <Modal visible={viewerIsOpen} onClose={closePhoto}>
-        <Photo photo={currentPhoto} />
+      {state.hasAlbums && (
+        <div>
+          <h4>Albums</h4>
+
+          <nav>
+            {state.albums.map((album, index) => (
+              <span
+                key={`a-${index}`}
+                className='text-white cursor-pointer'
+                onClick={() => {
+                  dispatch({ type: 'SELECT', albumIndex: index })
+                }}>
+                {album.title}
+              </span>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      {state.hasAlbum && (
+        <Gallery photos={state.album.photos} dispatch={dispatch} />
+      )}
+
+      <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
+        <Photo photo={state.photo} />
       </Modal>
 
       <div className='p-12 flex justify-center mx-auto'>

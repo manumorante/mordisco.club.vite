@@ -11,7 +11,7 @@ body,
 }
 
 body {
-  @apply bg-gray-900;
+  @apply bg-gray-900 text-neutral-400;
 }
 
 .Logo {
@@ -49,7 +49,7 @@ body {
   @apply h-full;
 }
 
-.modal-is-open .Photos {
+.modal-is-open body {
   @apply overflow-hidden;
 }
 

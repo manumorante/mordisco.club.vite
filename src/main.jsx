@@ -1,19 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './css/index.css'
+import ApiContext from './context/ApiContext'
 import App from './pages/Home'
 import Photos from './pages/Photos'
+import './css/index.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />} />
-        <Route path='/photos/:albumParam/:photoParam' element={<Photos />} />
-        <Route path='/photos/:albumParam' element={<Photos />} />
-      </Routes>
-    </BrowserRouter>
+    <ApiContext>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='/photos/:albumParam/:photoParam' element={<Photos />} />
+          <Route path='/photos/:albumParam' element={<Photos />} />
+        </Routes>
+      </BrowserRouter>
+    </ApiContext>
   </React.StrictMode>,
   document.getElementById('root')
 )

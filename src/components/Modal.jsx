@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-export default function Modal({ children, visible, onClose }) {
-  document.documentElement.classList.toggle('modal-is-open', visible)
+export default function Modal({ children, isOpen, dispatch }) {
+  document.documentElement.classList.toggle('modal-is-open', isOpen)
+
+  // Keybindings
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') dispatch({ type: 'MODAL_CLOSE' })
+      if (e.key === 'ArrowRight') dispatch({ type: 'NEXT_PHOTO' })
+      if (e.key === 'ArrowLeft') dispatch({ type: 'PREV_PHOTO' })
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   return (
-    visible && (
-      <div className='Modal fixed inset-0 p-1 sm:p-6 backdrop-grayscale  grid place-content-center'>
+    isOpen && (
+      <div className='Modal fixed inset-0 p-1 sm:p-6 backdrop-grayscale grid place-content-center'>
         <div className='z-10 shadow-2xl shadow-black'>{children}</div>
-        <div className='bg-black/60 fixed z-0 inset-0' onClick={onClose}></div>
+        <div
+          className='bg-black/60 fixed z-0 inset-0'
+          onClick={() => {
+            dispatch({ type: 'MODAL_CLOSE' })
+          }}></div>
       </div>
     )
   )
