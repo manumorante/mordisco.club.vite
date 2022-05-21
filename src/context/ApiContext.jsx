@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, createContext, useReducer } from 'react'
-import { data } from '/data.js'
 import { initialState, reducer } from '../js/reducer'
+
+import data from '/data/albums.json'
 
 const apiContext = createContext()
 
@@ -10,7 +11,7 @@ const ApiContext = ({ children }) => {
   useEffect(() => {
     dispatch({
       type: 'INIT',
-      data: data,
+      albums: data.albums,
     })
   }, [])
 

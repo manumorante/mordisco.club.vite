@@ -31,25 +31,23 @@ export default function Photos() {
 
           <nav>
             {state.albums.map((album, index) => (
-              <span
+              <div
                 key={`a-${index}`}
-                className='text-white cursor-pointer'
+                className='text-white cursor-pointer p-2'
                 onClick={() => {
                   dispatch({ type: 'SELECT', albumIndex: index })
                 }}>
-                {album.title}
-              </span>
+                {album.path}
+              </div>
             ))}
           </nav>
         </div>
       )}
 
-      {state.hasAlbum && (
-        <Gallery photos={state.album.photos} dispatch={dispatch} />
-      )}
+      {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
-        <Photo photo={state.photo} />
+        <Photo path={state.album.path} photo={state.photo} />
       </Modal>
 
       <div className='p-12 flex justify-center mx-auto'>

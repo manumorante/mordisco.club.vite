@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Loading from './Loading'
 
-export default function Photo({ photo } = { src: '', width: 3, height: 2 }) {
+export default function Photo({ path, photo } = { src: '', width: 3, height: 2 }) {
   const [loading, setLoading] = useState()
 
   useEffect(() => {
-    if (!photo || photo.src === '') return
+    if (!photo || photo.file === '') return
 
     setLoading(true)
-  }, [photo.src])
+  }, [photo.file])
 
   return (
     <div
@@ -17,7 +17,7 @@ export default function Photo({ photo } = { src: '', width: 3, height: 2 }) {
       {loading && <Loading />}
       <img
         className='rounded-sm object-scale-down'
-        src={photo.src}
+        src={`/${path}/${photo.file}`}
         onLoad={() => setLoading(false)}
       />
     </div>

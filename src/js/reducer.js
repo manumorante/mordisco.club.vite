@@ -26,11 +26,11 @@ const selectItem = (arr, index) => {
 
 const actions = {
   INIT: (state, acc) => {
-    if (isEmpty(acc.data)) {
-      err(state, acc, 'acc.data is empty')
+    if (isEmpty(acc.albums)) {
+      err(state, acc, 'acc.albums is empty')
       return state
     }
-    return { ...state, albums: acc.data, hasAlbums: true }
+    return { ...state, albums: acc.albums, hasAlbums: true }
   },
 
   // Select Album and Photo (optional) by index
@@ -56,7 +56,7 @@ const actions = {
     if (acc.albumIndex != null) {
       const album = selectItem(state.albums, acc.albumIndex)
       if (isEmpty(album)) {
-        err(state, acc, `album (${acc.albumIndex}) not found`)
+        err(state, acc, `album (${acc.albumIndex}) not found 2`)
         return state
       }
 
