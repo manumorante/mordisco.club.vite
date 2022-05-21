@@ -21,7 +21,7 @@ export default function Photos() {
   }, [state.hasAlbums])
 
   return (
-    <div className='Photos'>
+    <div className='Photos w-full h-full mx-auto max-w-5xl'>
       <div className='p-12 flex justify-center mx-auto'>
         <Logo />
       </div>
