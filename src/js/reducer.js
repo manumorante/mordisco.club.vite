@@ -1,4 +1,4 @@
-import { oNe, aNe, sNe } from './tools'
+import { isEmpty, valIndex, isLength } from './utils'
 const isMobile = window.innerWidth < 768
 
 export const initialState = {
@@ -11,59 +11,105 @@ export const initialState = {
   isMobile: isMobile,
 }
 
-const DEFAULT_ALBUM_INDEX = 0
-
-const albumValidIndex = (param, max) => {
-  const index = Number(param)
-  if (isNaN(index)) return DEFAULT_ALBUM_INDEX
-  if (index < 0) return DEFAULT_ALBUM_INDEX
-  if (index > max) return max
-  return index
+const err = (state, acc, error) => {
+  console.error(acc.type, error)
+  console.table(state)
+  console.table(acc)
 }
 
-const photoValidIndex = (index, max) => {
-  if (index == null) return -1
-  if (isNaN(index)) return -1
-  if (index > max) return max
-  return index
-}
+const selectItem = (arr, index) => {
+  if (!isLength(index)) return {}
+  if (index >= arr.length) return {}
 
-const selectAlbumByIndex = (albums, pIndex) => {
-  return albums[albumValidIndex(pIndex)]
-}
-
-const selectPhotoByIndex = (album, pIndex) => {
-  const index = photoValidIndex(pIndex, album.photos.length)
-  if (index < 0) return {}
-
-  const photo = album.photos[index]
-  if (!oNe(photo)) return {}
-
-  return { photo: photo, hasPhoto: true }
+  return arr[index]
 }
 
 const actions = {
   INIT: (state, acc) => {
+    if (isEmpty(acc.data)) {
+      err(state, acc, 'acc.data is empty')
+      return state
+    }
     return { ...state, albums: acc.data, hasAlbums: true }
   },
 
   // Select Album and Photo (optional) by index
   SELECT: (state, acc) => {
-    const album = selectAlbumByIndex(state.albums, acc.albumIndex)
+    // Photo (and Album)
+    if (acc.albumIndex != null && acc.photoIndex != null) {
+      const album = selectItem(state.albums, acc.albumIndex)
+      if (isEmpty(album)) {
+        err(state, acc, `album (${acc.albumIndex}) not found`)
+        return state
+      }
+
+      const photo = selectItem(album, acc.photoIndex)
+      if (isEmpty(photo)) {
+        err(state, acc, `photo (${acc.photoIndex}) not found`)
+        return state
+      }
+
+      return { ...state, album, photo, hasAlbum: true, hasPhoto: true }
+    }
+
+    // Album
+    if (acc.albumIndex != null) {
+      const album = selectItem(state.albums, acc.albumIndex)
+      if (isEmpty(album)) {
+        err(state, acc, `album (${acc.albumIndex}) not found`)
+        return state
+      }
+
+      return { ...state, album, hasAlbum: true }
+    }
 
     return {
       ...state,
       album: album,
       hasAlbum: true,
-      ...selectPhotoByIndex(album, acc.photoIndex),
     }
   },
 
   // Select Photo by index
   SET_PHOTO: (state, acc) => {
+    if (isEmpty(state.albums)) {
+      err(state, acc, 'state.albums is empty')
+      return state
+    }
+
+    if (isEmpty(state.album)) {
+      err(state, acc, 'state.album is empty')
+      return state
+    }
+
+    if (isNaN(acc.photoIndex)) {
+      err(state, acc, 'acc.photoIndex isNaN')
+      return state
+    }
+
+    const photos = state.album.photos
+    if (isEmpty(photos)) {
+      err(state, acc, 'state.album.photos is empty')
+      return state
+    }
+
+    const index = Number(acc.photoIndex)
+
+    if (index >= photos.length) {
+      err(state, acc, 'acc.photoIndex is out of range')
+      return state
+    }
+
+    const photo = selectItem(photos, index)
+    if (isEmpty(photo)) {
+      err(state, acc, 'photo not found')
+      return state
+    }
+
     return {
       ...state,
-      ...selectPhotoByIndex(state.album, acc.photoIndex),
+      photo: photo,
+      hasPhoto: true,
     }
   },
 
