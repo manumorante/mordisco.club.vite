@@ -30,7 +30,7 @@ export default function Photos() {
       {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
-        <Photo path={state.album.path} photo={state.photo} />
+        <Photo path={state.album.path} photo={state.photo} active={true} />
       </Modal>
 
       <div className='p-12 flex justify-center mx-auto'>

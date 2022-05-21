@@ -12,8 +12,23 @@ let DATA = {
 const albums_path = 'public/data/albums'
 
 function xCol({ w, h }) {
-  const normal = 2
-  return h > w ? 3 : normal
+  if (w > h) return 0
+
+  const ratio = w / h
+
+  const multis = [0.55, 0.6, 0.68, 0.7, 0.74, 0.79, 0.8, 0.86, 0.9]
+
+  let result = 0
+  multis.filter((v, i) => {
+    if (v > ratio) {
+      return false
+    } else {
+      result = i
+      return true
+    }
+  })
+
+  return result
 }
 
 function createAlbum(path) {
@@ -24,10 +39,17 @@ function createAlbum(path) {
   }
 
   const files = fs.readdirSync(path)
+  console.log('create album')
+  const ratios = []
   files.forEach(function (file, index) {
     const ext = file.split('.').pop().toLowerCase()
     if (ext === 'jpg' || ext === 'png') {
       const dimensions = sizeOf(path + '/' + file)
+      const ratio =
+        Math.round((dimensions.width / dimensions.height) * 100) / 100
+      if (dimensions.height > dimensions.width) {
+        ratios.push(ratio)
+      }
       album.photos.push({
         file: file,
         index: index - 1,
@@ -38,13 +60,17 @@ function createAlbum(path) {
     }
   })
 
+  console.log(ratios.sort())
+
   return album
 }
 
 function getAlbums() {
   const files = fs.readdirSync(albums_path)
   files.forEach(function (file) {
-    DATA.albums.push(createAlbum(albums_path + '/' + file))
+    if (fs.statSync(albums_path + '/' + file).isDirectory()) {
+      DATA.albums.push(createAlbum(albums_path + '/' + file))
+    }
   })
 
   return DATA
