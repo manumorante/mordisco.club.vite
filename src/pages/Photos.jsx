@@ -21,8 +21,8 @@ export default function Photos() {
   }, [state.hasAlbums])
 
   return (
-    <div className='Photos w-full h-full mx-auto max-w-5xl'>
-      <div className='p-12 flex justify-center mx-auto'>
+    <div className='Photos w-full h-full px-6 mx-auto max-w-5xl'>
+      <div className='py-12 flex justify-center mx-auto'>
         <Logo />
       </div>
 
@@ -33,7 +33,7 @@ export default function Photos() {
         <Photo path={state.album.path} photo={state.photo} active={true} />
       </Modal>
 
-      <div className='p-12 flex justify-center mx-auto'>
+      <div className='py-12 flex justify-center mx-auto'>
         <Logo />
       </div>
     </div>

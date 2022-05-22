@@ -12,12 +12,11 @@ export default function Photo({ path, photo, dispatch, active }) {
   }, [photo.file])
 
   const handleOnLoad = () => {
+    console.log('handleOnLoad')
     setLoading(false)
 
     if (!active) {
-      setWhenLoadedClasses(
-        'cursor-pointer md:hover:outline md:hover:outline-1 md:hover:outline-pink-500 transition-all'
-      )
+      setWhenLoadedClasses('cursor-pointer md:opacity-80 md:hover:opacity-100')
     }
   }
 
@@ -29,10 +28,11 @@ export default function Photo({ path, photo, dispatch, active }) {
   const imgClasses = active ? 'object-contain' : 'object-cover'
 
   return (
-    <div className='Photo relative z-10 w-full h-full overflow-hidden'>
+    <div
+      className={`Photo transition-all relative z-10 w-full h-full overflow-hidden ${whenLoadedClasses}`}>
       {loading && <Loading />}
       <img
-        className={`rounded-sm w-full h-full ${imgClasses} ${whenLoadedClasses}`}
+        className={`transition-all rounded-sm w-full h-full ${imgClasses}`}
         src={`${path}/${photo.file}`}
         onLoad={handleOnLoad}
         onClick={handleClick}
