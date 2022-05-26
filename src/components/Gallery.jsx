@@ -8,13 +8,13 @@ export default function Gallery({ album, dispatch }) {
       {album.photos.map((photo, index) => {
         return (
           <div
-            key={`g-${index}`}
+            key={`g-${photo}`}
             className='masonry__item'
             style={{
               '--img-w': photo.width,
               '--img-h': photo.height,
             }}>
-            <Photo path={`${album.path}/s`} photo={photo} dispatch={dispatch} />
+            <Photo path={`${album.path}/s`} photo={photo} index={index} dispatch={dispatch} />
           </div>
         )
       })}

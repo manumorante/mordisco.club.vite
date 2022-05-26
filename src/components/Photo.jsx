@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Loading from './Loading'
 
-export default function Photo({ path, photo, dispatch, active }) {
+export default function Photo({ path, photo, index, dispatch, active }) {
   const [loading, setLoading] = useState()
   const [whenLoadedClasses, setWhenLoadedClasses] = useState('')
 
@@ -21,7 +21,7 @@ export default function Photo({ path, photo, dispatch, active }) {
 
   const handleClick = () => {
     if (loading && active) return
-    dispatch({ type: 'SET_PHOTO', photoIndex: photo.index })
+    dispatch({ type: 'SET_PHOTO', photoIndex: index })
   }
 
   const imgClasses = active ? 'object-contain' : 'object-cover'
