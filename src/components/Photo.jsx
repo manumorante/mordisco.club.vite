@@ -29,7 +29,17 @@ export default function Photo({ path, photo, dispatch, active }) {
   return (
     <div
       className={`Photo transition-all relative z-10 w-full h-full overflow-hidden ${whenLoadedClasses}`}>
-      {loading && <Loading />}
+      {loading && (
+        <>
+          <Loading />
+          {active && (
+            <img
+              className={`transition-all rounded-md w-full h-full ${imgClasses}`}
+              src={`${path}/s/${photo.file}`}
+            />
+          )}
+        </>
+      )}
       <img
         className={`transition-all rounded-md w-full h-full ${imgClasses}`}
         src={`${path}/${photo.file}`}
