@@ -13,7 +13,7 @@ export default function Gallery({ album, dispatch }) {
               '--img-w': photo.width,
               '--img-h': photo.height,
             }}>
-            <Photo path={album.path} photo={photo} dispatch={dispatch} />
+            <Photo path={`${album.path}/s`} photo={photo} dispatch={dispatch} />
           </div>
         )
       })}
