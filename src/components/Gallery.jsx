@@ -1,10 +1,13 @@
 import React from 'react'
+import { randomizeArray } from '../js/utils'
 import Photo from './Photo'
 
 export default function Gallery({ album, dispatch }) {
+  const photos = randomizeArray(album.photos)
+
   return (
     <div className='masonry'>
-      {album.photos.map((photo, index) => {
+      {photos.map((photo, index) => {
         return (
           <div
             key={`g-${index}`}

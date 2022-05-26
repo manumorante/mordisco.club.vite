@@ -27,3 +27,10 @@ export function valIndex(value, maxLength) {
   if (index > maxLength - 1) return maxLength - 1
   return index
 }
+
+export function randomizeArray(arr) {
+  return arr
+    .map((a) => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
+}
