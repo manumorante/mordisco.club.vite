@@ -1,27 +1,29 @@
 // Language: javascript
 const fs = require('fs')
 
-const albums_path = 'public/data/albums'
+const root = 'public/data/albums'
 
-const albums = fs.readdirSync(albums_path)
-albums.forEach(function (album_name) {
-  const thisAlbum = albums_path + '/' + album_name
-  if (fs.statSync(thisAlbum).isDirectory()) {
-    jpgToLowecase(thisAlbum)
-    // Check if there is a folder called 's'
-    const s_folder = albums_path + '/' + album_name + '/s'
+fs.readdirSync(root).forEach(function (album) {
+  const album_path = root + '/' + album
+  if (fs.statSync(album_path).isDirectory()) {
+    // Dentro del album
+
+    myRename(album_path)
+
+    const s_folder = album_path + '/s'
     if (fs.existsSync(s_folder)) {
-      jpgToLowecase(thisAlbum + '/s')
+      myRename(s_folder)
     }
   }
 })
 
-function jpgToLowecase(path) {
-  fs.readdirSync(path).forEach(function (pFile) {
-    const file = pFile.toLowerCase()
-    const ext = file.split('.').pop()
-    if (ext === 'jpg') {
-      fs.renameSync(path + '/' + pFile, path + '/' + file)
+function myRename(path) {
+  fs.readdirSync(path).forEach(function (file) {
+    const isJpg = file.split('.').pop()
+    if (isJpg === 'jpg') {
+      let new_file = file.split('_').pop().toLowerCase()
+      new_file = 'mordisco_' + new_file
+      fs.renameSync(path + '/' + file, path + '/' + new_file)
     }
   })
 }

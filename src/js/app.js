@@ -9,7 +9,7 @@ let DATA = {
   albums: [],
 }
 
-const albums_path = 'public/data/albums'
+const root = 'public/data/albums'
 
 function createAlbum(path) {
   let album = {
@@ -19,15 +19,11 @@ function createAlbum(path) {
   }
 
   const files = fs.readdirSync(path)
-  files.forEach(function (f, index) {
-
-    const file = f.toLowerCase()
-    
+  files.forEach(function (file, index) {
     // If JPG
     const ext = file.split('.').pop()
     if (ext === 'jpg') {
-      fs.renameSync(path + '/' + f, path + '/' + file)
-      
+      console.log('jpg')
       const dimensions = sizeOf(path + '/' + file)
       album.photos.push({
         file: file,
@@ -42,10 +38,10 @@ function createAlbum(path) {
 }
 
 function getAlbums() {
-  const files = fs.readdirSync(albums_path)
+  const files = fs.readdirSync(root)
   files.forEach(function (file) {
-    if (fs.statSync(albums_path + '/' + file).isDirectory()) {
-      DATA.albums.push(createAlbum(albums_path + '/' + file))
+    if (fs.statSync(root + '/' + file).isDirectory()) {
+      DATA.albums.push(createAlbum(root + '/' + file))
     }
   })
 
