@@ -12,11 +12,15 @@
     @apply h-full;
   }
 
+  body {
+    @apply bg-black text-slate-500;
+  }
+
   .modal-is-open body {
     @apply overflow-hidden;
   }
 
-  body {
-    @apply bg-black text-slate-500;
+  .masonry__item {
+    @apply sm:transition-transform sm:hover:scale-105;
   }
 }

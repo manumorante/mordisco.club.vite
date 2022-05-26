@@ -6,7 +6,7 @@ export default function Gallery({ album, dispatch }) {
   const photos = randomizeArray(album.photos)
 
   return (
-    <div className='masonry'>
+    <div className='[Gallery] masonry'>
       {photos.map((photo, index) => {
         return (
           <div

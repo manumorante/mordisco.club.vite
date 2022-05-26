@@ -1,5 +1,5 @@
 .masonry {
-  --gap: 16;
+  --gap: 24;
   --col-min-w: 200;
   --col-max-w: 300;
   --col-med-w: calc(var(--col-min-w) + var(--col-max-w) / 2);

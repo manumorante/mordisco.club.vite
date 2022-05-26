@@ -36,20 +36,17 @@ export default function Photos() {
 
   return (
     <div className='Photos w-full h-full px-6 mx-auto max-w-5xl'>
-      <div className='py-12 flex justify-center mx-auto'>
-        <Logo />
-      </div>
+      <Logo />
 
-      {/* {state.hasAlbums && <Albums dispatch={dispatch} albums={state.albums} />} */}
-      {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
+      <div className='min-h-screen'>
+        {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
+      </div>
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
         <Photo path={state.album.path} photo={state.photo} active={true} />
       </Modal>
 
-      <div className='py-12 flex justify-center mx-auto'>
-        <Logo />
-      </div>
+      <Logo />
     </div>
   )
 }

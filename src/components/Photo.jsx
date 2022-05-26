@@ -31,7 +31,7 @@ export default function Photo({ path, photo, dispatch, active }) {
       className={`Photo transition-all relative z-10 w-full h-full overflow-hidden ${whenLoadedClasses}`}>
       {loading && <Loading />}
       <img
-        className={`transition-all rounded-sm w-full h-full ${imgClasses}`}
+        className={`transition-all rounded-md w-full h-full ${imgClasses}`}
         src={`${path}/${photo.file}`}
         onLoad={handleOnLoad}
         onClick={handleClick}
