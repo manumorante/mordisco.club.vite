@@ -5,11 +5,25 @@ import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
 import Photo from '../components/Photo'
 import Modal from '../components/Modal'
-import Albums from '../components/Albums'
+import Starback from 'starback'
 
 export default function Photos() {
   const { state, dispatch } = useApiContext()
   const { albumParam, photoParam } = useParams()
+
+  const canvas = document.getElementById('canvas')
+  const starback = new Starback(canvas, {
+    width: document.body.clientWidth,
+    height: document.body.clientHeight,
+    type: 'line',
+    frequency: 400,
+    slope: { x: -1, y: 10 },
+    directionX: 2,
+    speed: 30,
+    spread: -10,
+    randomOpacity: true,
+    quantity: 20,
+  })
 
   useEffect(() => {
     if (!state.hasAlbums) return

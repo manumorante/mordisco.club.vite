@@ -15,7 +15,7 @@ export default function Photo({ path, photo, dispatch, active }) {
     setLoading(false)
 
     if (!active) {
-      setWhenLoadedClasses('cursor-pointer md:opacity-80 md:hover:opacity-100')
+      setWhenLoadedClasses('cursor-pointer')
     }
   }
 
