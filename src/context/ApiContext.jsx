@@ -1,7 +1,11 @@
 import React, { useEffect, useContext, createContext, useReducer } from 'react'
 import { initialState, reducer } from '../js/reducer'
+import { randomizeArray } from '../js/utils'
 
 import data from '/public/data/albums.json'
+
+const newAlbums = [...data.albums]
+newAlbums[0].photos = randomizeArray(data.albums[0].photos)
 
 const apiContext = createContext()
 
@@ -11,7 +15,7 @@ const ApiContext = ({ children }) => {
   useEffect(() => {
     dispatch({
       type: 'INIT',
-      albums: data.albums,
+      albums: newAlbums,
     })
   }, [])
 
