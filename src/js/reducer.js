@@ -102,7 +102,7 @@ const actions = {
 
     const photo = selectItem(photos, index)
     if (isEmpty(photo)) {
-      err(state, acc, 'photo not found')
+      err(state, acc, `photo not found`)
       return state
     }
 

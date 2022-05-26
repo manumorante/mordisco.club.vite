@@ -23,11 +23,10 @@ function createAlbum(path) {
     // If JPG
     const ext = file.split('.').pop()
     if (ext === 'jpg') {
-      console.log('jpg')
       const dimensions = sizeOf(path + '/' + file)
       album.photos.push({
         file: file,
-        index: index - 1,
+        id: index - 1,
         width: dimensions.width,
         height: dimensions.height,
       })

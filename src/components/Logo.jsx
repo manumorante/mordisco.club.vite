@@ -2,9 +2,8 @@ import React from 'react'
 
 export default function Logo() {
   return (
-    <div className='w-40 my-14 sm:my-16 sm:py-12 flex justify-center mx-auto'>
+    <div className='Logo'>
       <svg
-        className='Logo w-full h-full'
         fill='none'
         width='208'
         height='36'

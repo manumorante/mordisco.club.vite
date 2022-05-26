@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
 import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
-import Photo from '../components/Photo'
+import BigPhoto from '../components/BigPhoto'
 import Modal from '../components/Modal'
 import Starback from 'starback'
 
@@ -35,18 +35,16 @@ export default function Photos() {
   }, [state.hasAlbums])
 
   return (
-    <div className='Photos w-full h-full px-6 mx-auto max-w-5xl'>
+    <>
       <Logo />
 
-      <div className='min-h-screen'>
-        {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
-      </div>
+      {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
-        <Photo path={state.album.path} photo={state.photo} active={true} />
+        <BigPhoto path={state.album.path} photo={state.photo} />
       </Modal>
 
       <Logo />
-    </div>
+    </>
   )
 }

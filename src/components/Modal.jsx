@@ -16,14 +16,17 @@ export default function Modal({ children, isOpen, dispatch }) {
 
   return (
     isOpen && (
-      <div className='Modal fixed z-30 inset-0 p-1 sm:p-6 backdrop-grayscale grid place-content-center'>
-        {children}
+      <>
+        <div className='Modal pointer-events-none fixed z-30 inset-0 p-1 sm:p-6 grid place-content-center place-items-center'>
+          {children}
+        </div>
         <div
-          className='bg-black/60 fixed z-0 inset-0'
+          className='overlay fixed z-20 inset-0 bg-black/60 backdrop-grayscale'
           onClick={() => {
+            console.log('overlay close')
             dispatch({ type: 'MODAL_CLOSE' })
           }}></div>
-      </div>
+      </>
     )
   )
 }

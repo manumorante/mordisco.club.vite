@@ -1,25 +1,22 @@
 import React from 'react'
-import Photo from './Photo'
+import GalleryPhoto from './GalleryPhoto'
 
 export default function Gallery({ album, dispatch }) {
   return (
-    <div className='[Gallery] masonry'>
+    <div className='Gallery masonry'>
       {album.photos.map((photo, index) => {
         return (
-          <div
+          <GalleryPhoto
             key={`g-${index}`}
-            className='masonry__item'
+            path={`${album.path}/s`}
+            photo={photo}
+            index={index}
+            dispatch={dispatch}
             style={{
               '--img-w': photo.width,
               '--img-h': photo.height,
-            }}>
-            <Photo
-              path={`${album.path}/s`}
-              photo={photo}
-              index={index}
-              dispatch={dispatch}
-            />
-          </div>
+            }}
+          />
         )
       })}
     </div>

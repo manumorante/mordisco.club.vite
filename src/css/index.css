@@ -4,11 +4,11 @@
 
 @import './loading.css';
 @import './masonry.css';
+@import './gallery.css';
 
 @layer base {
   html,
-  body,
-  #root {
+  body {
     @apply h-full;
   }
 
@@ -16,11 +16,20 @@
     @apply bg-black text-slate-500;
   }
 
+  .App {
+    @apply h-full relative z-10 mx-auto max-w-5xl px-6;
+  }
+
   .modal-is-open body {
     @apply overflow-hidden;
   }
 
-  .masonry__item {
-    @apply sm:transition-transform sm:hover:scale-105;
+
+  .Logo {
+    @apply w-40 my-14 sm:my-16 sm:py-12 flex justify-center mx-auto;
+  }
+
+  .Logo svg {
+    @apply w-full h-full;
   }
 }

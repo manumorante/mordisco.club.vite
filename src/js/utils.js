@@ -1,7 +1,7 @@
 // https://lodash.com/
 
 export function isLength(value) {
-  return value && !isNaN(value) && value >= 0
+  return !isNaN(value) && value >= 0
 }
 
 export function isEmpty(value) {

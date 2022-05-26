@@ -1,0 +1,23 @@
+.Gallery {
+  @apply min-h-screen;
+}
+
+.GalleryPhoto {
+  @apply relative w-full h-full overflow-hidden;
+}
+
+.GalleryPhoto__img {
+  @apply w-full h-full cursor-pointer object-cover sm:transition-transform sm:hover:scale-110;
+}
+
+.BigPhoto {
+  @apply relative w-full h-full overflow-hidden;
+}
+
+.BigPhoto .photo {
+  @apply w-full h-full object-contain;
+}
+
+.modal-is-open .Gallery {
+  @apply pointer-events-none;
+}
