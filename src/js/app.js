@@ -19,9 +19,15 @@ function createAlbum(path) {
   }
 
   const files = fs.readdirSync(path)
-  files.forEach(function (file, index) {
-    const ext = file.split('.').pop().toLowerCase()
-    if (ext === 'jpg' || ext === 'png') {
+  files.forEach(function (f, index) {
+
+    const file = f.toLowerCase()
+    
+    // If JPG
+    const ext = file.split('.').pop()
+    if (ext === 'jpg') {
+      fs.renameSync(path + '/' + f, path + '/' + file)
+      
       const dimensions = sizeOf(path + '/' + file)
       album.photos.push({
         file: file,

@@ -12,7 +12,6 @@ export default function Photo({ path, photo, dispatch, active }) {
   }, [photo.file])
 
   const handleOnLoad = () => {
-    console.log('handleOnLoad')
     setLoading(false)
 
     if (!active) {
