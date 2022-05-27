@@ -32,6 +32,10 @@ module.exports = {
           '100%': { opacity: '0' },
         },
       },
+      transitionDuration: {
+        0: '0ms',
+        2000: '2000ms',
+      },
     },
   },
   plugins: [],

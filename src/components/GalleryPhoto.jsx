@@ -10,10 +10,10 @@ export default function GalleryPhoto({ path, photo, index, dispatch, style }) {
   }
 
   return (
-    <div className='GalleryPhoto masonry__item' style={style}>
+    <div className='GalleryPhoto mm-masonry__item relative' style={style}>
       {loading && <Loading />}
       <img
-        className={`GalleryPhoto__img`}
+        className='mm-masonry__img cursor-pointer'
         src={`${path}/${photo.file}`}
         onLoad={() => setLoading(false)}
         onClick={handleClick}

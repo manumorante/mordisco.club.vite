@@ -3,7 +3,7 @@ import GalleryPhoto from './GalleryPhoto'
 
 export default function Gallery({ album, dispatch }) {
   return (
-    <div className='Gallery masonry'>
+    <div className='Gallery mm-masonry'>
       {album.photos.map((photo, index) => {
         return (
           <GalleryPhoto
@@ -13,8 +13,8 @@ export default function Gallery({ album, dispatch }) {
             index={index}
             dispatch={dispatch}
             style={{
-              '--img-w': photo.width,
-              '--img-h': photo.height,
+              '--w': photo.width,
+              '--h': photo.height,
             }}
           />
         )

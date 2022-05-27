@@ -1,0 +1,11 @@
+.Modal {
+  @apply fixed z-30 inset-0 p-1 sm:p-6;
+}
+
+.Modal__close {
+  @apply absolute top-6 right-6 w-8 h-8 text-white cursor-pointer;
+}
+
+.Modal__overlay {
+  @apply fixed z-20 inset-0 bg-black/60 backdrop-grayscale;
+}

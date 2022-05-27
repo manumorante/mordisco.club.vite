@@ -1,0 +1,7 @@
+.Logo {
+  @apply w-40 my-14 sm:my-16 sm:py-12 flex justify-center mx-auto;
+}
+
+.Logo svg {
+  @apply w-full h-full;
+}

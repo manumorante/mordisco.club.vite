@@ -2,9 +2,15 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import './loading.css';
-@import './masonry.css';
-@import './gallery.css';
+@import './Logo.css';
+@import './Loading.css';
+@import './Gallery.css';
+@import './Modal.css';
+
+:root {
+  --mm-masonry-col-width: 200;
+  --mm-masonry-gap: 12;
+}
 
 @layer base {
   html,
@@ -22,14 +28,5 @@
 
   .modal-is-open body {
     @apply overflow-hidden;
-  }
-
-
-  .Logo {
-    @apply w-40 my-14 sm:my-16 sm:py-12 flex justify-center mx-auto;
-  }
-
-  .Logo svg {
-    @apply w-full h-full;
   }
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { XIcon } from '@heroicons/react/solid'
 
 export default function Modal({ children, isOpen, dispatch }) {
   document.documentElement.classList.toggle('modal-is-open', isOpen)
@@ -14,18 +15,18 @@ export default function Modal({ children, isOpen, dispatch }) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  const handleClose = () => {
+    dispatch({ type: 'MODAL_CLOSE' })
+  }
+
   return (
     isOpen && (
       <>
-        <div className='Modal pointer-events-none fixed z-30 inset-0 p-1 sm:p-6 grid place-content-center place-items-center'>
+        <div className='Modal'>
           {children}
+          <XIcon className='Modal__close' onClick={handleClose} />
         </div>
-        <div
-          className='overlay fixed z-20 inset-0 bg-black/60 backdrop-grayscale'
-          onClick={() => {
-            console.log('overlay close')
-            dispatch({ type: 'MODAL_CLOSE' })
-          }}></div>
+        <div className='Modal__overlay' onClick={handleClose}></div>
       </>
     )
   )
