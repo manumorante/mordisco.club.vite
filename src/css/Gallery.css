@@ -1,7 +1,7 @@
 .BigPhoto {
-  @apply w-full h-full overflow-hidden relative;
+  @apply w-auto h-full overflow-hidden flex justify-center relative;
 }
 
 .BigPhoto__img {
-  @apply absolute w-full h-full object-contain;
+  @apply absolute w-auto h-full object-contain;
 }
