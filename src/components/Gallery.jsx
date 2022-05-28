@@ -18,7 +18,7 @@ export default function Gallery({ album, albumIndex, dispatch }) {
         // Width will be the width of the column and height is
         // calculated proportionally to the new width.
         const width = colWidth
-        const height = (photo.height * colWidth) / photo.width
+        const height = Math.floor((photo.height * colWidth) / photo.width)
 
         return (
           <GalleryPhoto

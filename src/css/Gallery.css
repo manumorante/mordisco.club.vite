@@ -1,5 +1,4 @@
-/* MM Gallery */
-
+/* MM Masonry cofig */
 :root {
   --mm-masonry-col-width: 285;
   --mm-masonry-gap: 20;
@@ -10,6 +9,7 @@
   }
 }
 
+/* Gallery */
 .GalleryPhoto {
   @apply relative bg-neutral-900/50;
 }
