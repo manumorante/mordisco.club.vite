@@ -24,6 +24,48 @@ const selectItem = (arr, index) => {
   return arr[index]
 }
 
+const setPhoto = (state, acc) => {
+  if (isEmpty(state.albums)) {
+    err(state, acc, 'state.albums is empty')
+    return state
+  }
+
+  if (isEmpty(state.album)) {
+    err(state, acc, 'state.album is empty')
+    return state
+  }
+
+  if (isNaN(acc.photoIndex)) {
+    err(state, acc, 'acc.photoIndex isNaN')
+    return state
+  }
+
+  const photos = state.album.photos
+  if (isEmpty(photos)) {
+    err(state, acc, 'state.album.photos is empty')
+    return state
+  }
+
+  const index = Number(acc.photoIndex)
+
+  if (index >= photos.length) {
+    err(state, acc, 'acc.photoIndex is out of range')
+    return state
+  }
+
+  const photo = selectItem(photos, index)
+  if (isEmpty(photo)) {
+    err(state, acc, `photo not found`)
+    return state
+  }
+
+  return {
+    ...state,
+    photo: photo,
+    hasPhoto: true,
+  }
+}
+
 const actions = {
   INIT: (state, acc) => {
     if (isEmpty(acc.albums)) {
@@ -72,45 +114,7 @@ const actions = {
 
   // Select Photo by index
   SET_PHOTO: (state, acc) => {
-    if (isEmpty(state.albums)) {
-      err(state, acc, 'state.albums is empty')
-      return state
-    }
-
-    if (isEmpty(state.album)) {
-      err(state, acc, 'state.album is empty')
-      return state
-    }
-
-    if (isNaN(acc.photoIndex)) {
-      err(state, acc, 'acc.photoIndex isNaN')
-      return state
-    }
-
-    const photos = state.album.photos
-    if (isEmpty(photos)) {
-      err(state, acc, 'state.album.photos is empty')
-      return state
-    }
-
-    const index = Number(acc.photoIndex)
-
-    if (index >= photos.length) {
-      err(state, acc, 'acc.photoIndex is out of range')
-      return state
-    }
-
-    const photo = selectItem(photos, index)
-    if (isEmpty(photo)) {
-      err(state, acc, `photo not found`)
-      return state
-    }
-
-    return {
-      ...state,
-      photo: photo,
-      hasPhoto: true,
-    }
+    return setPhoto(state, acc)
   },
 
   // Deselect Photo
@@ -129,6 +133,30 @@ const actions = {
       photo: {},
       hasPhoto: false,
     }
+  },
+
+  NEXT_PHOTO: (state, _acc) => {
+    let id = state.photo.id + 1
+    if (id >= state.album.photos.length) return state
+
+    history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
+
+    return setPhoto(state, {
+      albumIndex: state.album.id,
+      photoIndex: id,
+    })
+  },
+
+  PREV_PHOTO: (state, _acc) => {
+    let id = state.photo.id - 1
+    if (id < 0) return state
+
+    history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
+
+    return setPhoto(state, {
+      albumIndex: state.album.id,
+      photoIndex: id,
+    })
   },
 }
 
