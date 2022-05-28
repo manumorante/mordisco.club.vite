@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
-import Loading from './Loading'
+import React, { useState, useRef } from 'react'
+import { useIntersection } from '../js/useIntersection'
 
-export default function GalleryPhoto({ path, photo, index, dispatch, style }) {
-  const [loading, setLoading] = useState(true)
+export default function GalleryPhoto({
+  src,
+  width,
+  height,
+  index,
+  handleClick,
+}) {
+  const [isInView, setIsInView] = useState(false)
+  const imgRef = useRef()
 
-  const handleClick = () => {
-    if (loading) return
-    dispatch({ type: 'SET_PHOTO', photoIndex: index })
-  }
+  useIntersection(imgRef, () => {
+    setIsInView(true)
+  })
 
   return (
-    <div className='GalleryPhoto mm-masonry__item relative' style={style}>
-      {loading && <Loading />}
-      <img
-        className='mm-masonry__img cursor-pointer'
-        src={`${path}/${photo.file}`}
-        onLoad={() => setLoading(false)}
-        onClick={handleClick}
-      />
+    <div
+      ref={imgRef}
+      className='GalleryPhoto mm-masonry__item relative'
+      style={{ '--w': width, '--h': height }}>
+      {isInView && (
+        <img
+          className='mm-masonry__img cursor-pointer'
+          src={src}
+          onClick={() => handleClick(index)}
+        />
+      )}
     </div>
   )
 }

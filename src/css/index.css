@@ -7,12 +7,11 @@
 @import './Gallery.css';
 @import './Modal.css';
 
-:root {
-  --mm-masonry-col-width: 200;
-  --mm-masonry-gap: 12;
-}
-
 @layer base {
+  :root {
+    --container: 896px;
+  }
+
   html,
   body {
     @apply h-full;
@@ -23,7 +22,12 @@
   }
 
   .App {
-    @apply h-full relative z-10 mx-auto max-w-5xl px-6;
+    max-width: var(--container);
+
+    @apply max-w-4xl h-full
+    mx-6 lg:mx-auto
+    /* Para que quede por encima del fondo de `canvas` */
+    relative z-10;
   }
 
   .modal-is-open body {

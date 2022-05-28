@@ -1,3 +1,31 @@
+/* MM Gallery */
+
+:root {
+  --mm-masonry-col-width: 285;
+  --mm-masonry-gap: 20;
+}
+
+@media (min-width: 768px) {
+  /* 2 columns */
+  :root {
+    --mm-masonry-col-width: 352;
+    --mm-masonry-gap: 16;
+  }
+}
+
+@media (min-width: 896px) {
+  /* 3 columns */
+  :root {
+    --mm-masonry-col-width: 285;
+    --mm-masonry-gap: 20;
+  }
+}
+
+.GalleryPhoto {
+  min-width: var(--mm-masonry-col-width);
+  min-height: var(--mm-masonry-col-width);
+}
+
 .BigPhoto {
   @apply w-auto h-full overflow-hidden flex justify-center relative;
 }
