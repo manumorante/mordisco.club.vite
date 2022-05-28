@@ -3,30 +3,19 @@
 :root {
   --mm-masonry-col-width: 285;
   --mm-masonry-gap: 20;
-}
 
-@media (min-width: 768px) {
-  /* 2 columns */
-  :root {
+  @media (min-width: 768px) and (max-width: 895px) {
     --mm-masonry-col-width: 352;
     --mm-masonry-gap: 16;
   }
 }
 
-@media (min-width: 896px) {
-  /* 3 columns */
-  :root {
-    --mm-masonry-col-width: 285;
-    --mm-masonry-gap: 20;
-  }
-}
-
 .GalleryPhoto {
-  @apply bg-neutral-900/50;
+  @apply relative bg-neutral-900/50;
 }
 
 .GalleryPhoto__img {
-  @apply relative z-10;
+  @apply relative z-10 cursor-pointer;
 }
 
 .BigPhoto {
