@@ -22,8 +22,7 @@
 }
 
 .GalleryPhoto {
-  min-width: var(--mm-masonry-col-width);
-  min-height: var(--mm-masonry-col-width);
+  @apply bg-neutral-900/50;
 }
 
 .BigPhoto {
