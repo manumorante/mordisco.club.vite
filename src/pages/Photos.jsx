@@ -38,7 +38,9 @@ export default function Photos() {
     <>
       <Logo />
 
-      {state.hasAlbum && <Gallery album={state.album} dispatch={dispatch} />}
+      {state.hasAlbum && (
+        <Gallery album={state.album} albumIndex={0} dispatch={dispatch} />
+      )}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
         <BigPhoto path={state.album.path} photo={state.photo} />

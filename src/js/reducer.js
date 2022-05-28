@@ -1,4 +1,4 @@
-import { isEmpty, valIndex, isLength } from './utils'
+import { isEmpty, isLength } from './utils'
 const isMobile = window.innerWidth < 768
 
 export const initialState = {
@@ -43,7 +43,7 @@ const actions = {
         return state
       }
 
-      const photo = selectItem(album, acc.photoIndex)
+      const photo = selectItem(album.photos, acc.photoIndex)
       if (isEmpty(photo)) {
         err(state, acc, `photo (${acc.photoIndex}) not found`)
         return state
@@ -123,6 +123,7 @@ const actions = {
   },
 
   MODAL_CLOSE: (state, _acc) => {
+    history.pushState(null, '', '/photos/' + state.album.id)
     return {
       ...state,
       photo: {},
@@ -132,9 +133,6 @@ const actions = {
 }
 
 export function reducer(state, acc) {
-  // console.info(acc.type)
-  // console.info('STATE', state)
-  // console.info('ACTION', acc)
   const actionReducer = actions[acc.type]
   return actionReducer ? actionReducer(state, acc) : state
 }

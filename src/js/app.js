@@ -1,6 +1,12 @@
-// Language: javascript
 const fs = require('fs')
 const sizeOf = require('image-size')
+
+function randomizeArray(arr) {
+  return arr
+    .map((a) => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
+}
 
 const TODAY = new Date()
 
@@ -11,25 +17,28 @@ let DATA = {
 
 const root = 'public/data/albums'
 
-function createAlbum(path) {
+function createAlbum(path, albumIndex) {
   let album = {
     created_at: TODAY,
+    id: albumIndex,
     path: path.substring(6),
     photos: [],
   }
 
-  const files = fs.readdirSync(path)
-  files.forEach(function (file, index) {
-    // If JPG
+  let files = fs.readdirSync(path)
+  files = randomizeArray(files)
+  let photoIndex = 0
+  files.forEach(function (file) {
     const ext = file.split('.').pop()
     if (ext === 'jpg') {
       const dimensions = sizeOf(path + '/' + file)
       album.photos.push({
         file: file,
-        id: index - 1,
+        id: photoIndex,
         width: dimensions.width,
         height: dimensions.height,
       })
+      photoIndex = photoIndex + 1
     }
   })
 
@@ -38,9 +47,11 @@ function createAlbum(path) {
 
 function getAlbums() {
   const files = fs.readdirSync(root)
+  let albumIndex = 0
   files.forEach(function (file) {
     if (fs.statSync(root + '/' + file).isDirectory()) {
-      DATA.albums.push(createAlbum(root + '/' + file))
+      DATA.albums.push(createAlbum(root + '/' + file, albumIndex))
+      albumIndex = albumIndex + 1
     }
   })
 
