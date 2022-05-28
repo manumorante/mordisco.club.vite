@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useIntersection } from '../js/useIntersection'
+import Loading from './Loading'
 
 export default function GalleryPhoto({
   src,
@@ -9,11 +10,17 @@ export default function GalleryPhoto({
   handleClick,
 }) {
   const [isInView, setIsInView] = useState(false)
+  const [loading, setLoading] = useState(true)
   const imgRef = useRef()
 
   useIntersection(imgRef, () => {
     setIsInView(true)
+    setLoading(true)
   })
+
+  const handleLoad = () => {
+    setLoading(false)
+  }
 
   return (
     <div
@@ -21,11 +28,15 @@ export default function GalleryPhoto({
       className='GalleryPhoto mm-masonry__item relative'
       style={{ '--w': width, '--h': height }}>
       {isInView && (
-        <img
-          className='mm-masonry__img cursor-pointer'
-          src={src}
-          onClick={() => handleClick(index)}
-        />
+        <>
+          <img
+            className='GalleryPhoto__img mm-masonry__img cursor-pointer'
+            src={src}
+            onLoad={handleLoad}
+            onClick={() => handleClick(index)}
+          />
+          {loading && <Loading />}
+        </>
       )}
     </div>
   )

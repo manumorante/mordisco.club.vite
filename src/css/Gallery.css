@@ -25,6 +25,10 @@
   @apply bg-neutral-900/50;
 }
 
+.GalleryPhoto__img {
+  @apply relative z-10;
+}
+
 .BigPhoto {
   @apply w-auto h-full overflow-hidden flex justify-center relative;
 }

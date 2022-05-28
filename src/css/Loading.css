@@ -1,3 +1,7 @@
+.Loading {
+  @apply absolute inset-0 opacity-0 animate-in-delay grid place-content-center;
+}
+
 .loading {
   @apply rounded-full
   w-8 h-8
