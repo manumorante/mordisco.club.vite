@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <title>Mordisco Club</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta property="og:title" content="mordisco.club" />
     <meta property="og:site_name" content="mordisco.club" />
     <meta property="og:url" content="https://mordisco.club" />
@@ -10,7 +12,18 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og.png" />
 
-    <title>Mordisco Club</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-WDX93TJEJY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-WDX93TJEJY')
+    </script>
   </head>
   <body>
     <div class="App" id="root"></div>

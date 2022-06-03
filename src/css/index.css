@@ -22,10 +22,9 @@
   }
 
   .App {
-    max-width: var(--container);
+    /* max-width: var(--container); */
 
-    @apply max-w-4xl h-full
-    mx-6 lg:mx-auto
+    @apply h-full    
     /* Para que quede por encima del fondo de `canvas` */
     relative z-10;
   }

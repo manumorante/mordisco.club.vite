@@ -35,7 +35,7 @@ export default function Photos() {
   }, [state.hasAlbums])
 
   return (
-    <>
+    <div className='Photos max-w-4xl mx-6 lg:mx-auto'>
       <Logo />
 
       {state.hasAlbum && (
@@ -47,6 +47,6 @@ export default function Photos() {
       </Modal>
 
       <Logo />
-    </>
+    </div>
   )
 }
