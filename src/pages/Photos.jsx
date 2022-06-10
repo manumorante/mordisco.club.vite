@@ -24,7 +24,7 @@ export default function Photos() {
   useEffect(() => showStars(), [])
 
   return (
-    <div className='Photos max-w-4xl mx-6 lg:mx-auto'>
+    <div className='Photos max-w-4xl mx-8 lg:mx-auto'>
       <Logo />
 
       {state.albums.length > 0 &&

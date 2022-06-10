@@ -1,7 +1,7 @@
 /* MM Masonry cofig */
 :root {
   --mm-masonry-col-width: 285;
-  --mm-masonry-gap: 20;
+  --mm-masonry-gap: 40;
 
   @media (min-width: 768px) and (max-width: 895px) {
     --mm-masonry-col-width: 352;
