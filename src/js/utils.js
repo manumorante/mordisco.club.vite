@@ -27,3 +27,7 @@ export function valIndex(value, maxLength) {
   if (index > maxLength - 1) return maxLength - 1
   return index
 }
+
+export function or0(value) {
+  return isNaN(value) ? 0 : value
+}

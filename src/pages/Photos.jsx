@@ -5,28 +5,15 @@ import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
 import BigPhoto from '../components/BigPhoto'
 import Modal from '../components/Modal'
-import Starback from 'starback'
+import showStars from '../js/stars'
 
 export default function Photos() {
   const { state, dispatch } = useApiContext()
   const { albumParam, photoParam } = useParams()
 
-  const canvas = document.getElementById('canvas')
-  const starback = new Starback(canvas, {
-    width: document.body.clientWidth,
-    height: document.body.clientHeight,
-    type: 'line',
-    frequency: 400,
-    slope: { x: -1, y: 10 },
-    directionX: 2,
-    speed: 30,
-    spread: -10,
-    randomOpacity: true,
-    quantity: 20,
-  })
-
   useEffect(() => {
     if (!state.hasAlbums) return
+
     dispatch({
       type: 'SELECT',
       albumIndex: albumParam,
@@ -34,12 +21,29 @@ export default function Photos() {
     })
   }, [state.hasAlbums])
 
+  useEffect(() => showStars(), [])
+
   return (
     <div className='Photos max-w-4xl mx-6 lg:mx-auto'>
       <Logo />
 
+      {state.albums.length > 0 &&
+        state.albums.map((album) => {
+          return (
+            <a className='p-2 inline-block' key={album.id} href={`/photos/${album.id}`}>
+              {album.id + 1}
+            </a>
+          )
+        })}
+
       {state.hasAlbum && (
-        <Gallery album={state.album} albumIndex={0} dispatch={dispatch} />
+        <div>
+          <Gallery
+            album={state.album}
+            albumIndex={state.album.id}
+            dispatch={dispatch}
+          />
+        </div>
       )}
 
       <Modal isOpen={state.hasPhoto} dispatch={dispatch}>

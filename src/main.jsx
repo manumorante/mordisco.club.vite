@@ -15,6 +15,7 @@ ReactDOM.render(
           <Route path='/' element={<App />} />
           <Route path='/photos/:albumParam/:photoParam' element={<Photos />} />
           <Route path='/photos/:albumParam' element={<Photos />} />
+          <Route path='/photos' element={<Photos />} />
         </Routes>
       </BrowserRouter>
     </ApiContext>

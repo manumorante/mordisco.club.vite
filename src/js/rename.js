@@ -20,7 +20,8 @@ fs.readdirSync(root).forEach(function (album) {
 function myRename(path) {
   fs.readdirSync(path).forEach(function (file) {
     const isJpg = file.split('.').pop()
-    if (isJpg === 'jpg') {
+    console.log(file)
+    if (isJpg === 'JPG') {
       let new_file = file.split('_').pop().toLowerCase()
       new_file = 'mordisco_' + new_file
       fs.renameSync(path + '/' + file, path + '/' + new_file)

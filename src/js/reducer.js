@@ -1,4 +1,4 @@
-import { isEmpty, isLength } from './utils'
+import { isEmpty, isLength, or0 } from './utils'
 const isMobile = window.innerWidth < 768
 
 export const initialState = {
@@ -21,7 +21,7 @@ const selectItem = (arr, index) => {
   if (!isLength(index)) return {}
   if (index >= arr.length) return {}
 
-  return arr[index]
+  return arr[parseInt(index)]
 }
 
 const setPhoto = (state, acc) => {
@@ -78,7 +78,7 @@ const actions = {
   // Select Album and Photo (optional) by index
   SELECT: (state, acc) => {
     // Photo (and Album)
-    if (acc.albumIndex != null && acc.photoIndex != null) {
+    if (isLength(acc.albumIndex) && isLength(acc.photoIndex)) {
       const album = selectItem(state.albums, acc.albumIndex)
       if (isEmpty(album)) {
         err(state, acc, `album (${acc.albumIndex}) not found`)
@@ -95,20 +95,18 @@ const actions = {
     }
 
     // Album
-    if (acc.albumIndex != null) {
+    if (isLength(acc.albumIndex)) {
       const album = selectItem(state.albums, acc.albumIndex)
       if (isEmpty(album)) {
         err(state, acc, `album (${acc.albumIndex}) not found 2`)
         return state
       }
 
-      return { ...state, album, hasAlbum: true }
+      return { ...state, album: album, hasAlbum: true }
     }
 
     return {
       ...state,
-      album: album,
-      hasAlbum: true,
     }
   },
 
