@@ -12,7 +12,7 @@
   - si es `set` pinta un error en consola y provoca un error throw new Error()
 */
 
-import { isEmpty, isLength, setArrIndex } from './utils'
+import { isNum, isEmpty, isLength, setArrIndex } from './utils'
 import { urlPush, urlPhotos, urlAlbum, urlPhoto } from './urlPush'
 const isMobile = window.innerWidth < 768
 
@@ -38,31 +38,17 @@ const getAlbum = (state, acc) => {
 
   const album = setArrIndex(state.albums, id)
   if (isEmpty(album)) return err(`getAlbum() album(${id}) not found`)
-
-  if (!album.hasOwnProperty('photos'))
-    err(`getAlbum() album(${id}) has no photos`)
-
-  if (isEmpty(album.photos))
-    return err(`getAlbum() album(${id}).photos isEmpty`)
+  if (!'photos' in album) err(`getAlbum() album(${id}) has no photos`)
+  if (isEmpty(album.photos)) return err(`getAlbum() album(${id}).photos isEmpty`)
 
   return [false, album]
-}
-
-const setAlbum = (state, acc) => {
-  const album = getAlbum(state, acc)
-  if (album[0]) return state
-
-  return { ...state, album: album[1] }
 }
 
 // PHOTO
 // To set a photo you need albumID and photoID
 const getPhoto = (state, acc) => {
-  if (isNaN(acc.photoID))
-    return err(`getPhoto() photoID(${acc.photoID}) is NaN`)
-
-  if (isNaN(acc.albumID))
-    return err(`getPhoto() photoID(${acc.albumID}) is NaN`)
+  if (isNaN(acc.photoID)) return err(`getPhoto() photoID(${acc.photoID}) is NaN`)
+  if (isNaN(acc.albumID)) return err(`getPhoto() photoID(${acc.albumID}) is NaN`)
 
   const album = getAlbum(state, acc)
   if (album[0]) return [true, {}]
@@ -73,50 +59,38 @@ const getPhoto = (state, acc) => {
   return [false, photo]
 }
 
-const setPhoto = (state, acc) => {
-  const album = getAlbum(state, acc)
-  if (album[0]) return state
-
-  const photo = getPhoto(state, acc)
-  if (photo[0]) return state
-
-  urlPhoto(acc.albumID, acc.photoID)
-
-  return { ...state, album: album[1], photo: photo[1] }
-}
-
 const actions = {
   INIT: (state, acc) => {
     if (isEmpty(acc.albums)) throw new Error('INIT: albums isEmpty')
 
-    return {
-      ...state,
-      albums: acc.albums,
-      hasAlbums: true,
-      album: {},
-      photo: {},
-    }
+    return { ...state, albums: acc.albums, hasAlbums: true, album: {}, photo: {} }
   },
 
   // Select Album or Photo
-  SELECT: (state, acc) => {
-    if (!isNaN(acc.photoID)) return setPhoto(state, acc)
-    if (!isNaN(acc.albumID)) return setAlbum(state, acc)
+  SET: (state, acc) => {
+    if (isNum(acc.photoID)) return actions.SET_PHOTO(state, acc)
+    if (isNum(acc.albumID)) return actions.SET_ALBUM(state, acc)
 
     return state
   },
 
-  // Set Album or Photo by id
-  SET_ALBUM: (state, acc) => setAlbum(state, acc),
-  SET_PHOTO: (state, acc) => setPhoto(state, acc),
+  SET_ALBUM: (state, acc) => {
+    const album = getAlbum(state, acc)
+    if (album[0]) return state
 
-  // Deselect Album and Photo
-  UNSET_ALBUM: (state, _acc) => {
-    return { ...state, album: {}, photo: {} }
+    return { ...state, album: album[1] }
   },
 
-  UNSET_PHOTO: (state, _acc) => {
-    return { ...state, photo: {} }
+  SET_PHOTO: (state, acc) => {
+    const album = getAlbum(state, acc)
+    if (album[0]) return state
+
+    const photo = getPhoto(state, acc)
+    if (photo[0]) return state
+
+    urlPhoto(acc.albumID, acc.photoID)
+
+    return { ...state, album: album[1], photo: photo[1] }
   },
 
   MODAL_CLOSE: (state, _acc) => {
@@ -128,24 +102,18 @@ const actions = {
     let id = state.photo.id + 1
     if (id >= state.album.photos.length) return state
 
-    history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
+    urlPhoto(state.album.id, id)
 
-    return setPhoto(state, {
-      albumID: state.album.id,
-      photoID: id,
-    })
+    return actions.SET_PHOTO(state, { albumID: state.album.id, photoID: id })
   },
 
   PREV_PHOTO: (state, _acc) => {
     let id = state.photo.id - 1
     if (id < 0) return state
 
-    history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
+    urlPhoto(state.album.id, id)
 
-    return setPhoto(state, {
-      albumID: state.album.id,
-      photoID: id,
-    })
+    return actions.SET_PHOTO(state, { albumID: state.album.id, photoID: id })
   },
 }
 

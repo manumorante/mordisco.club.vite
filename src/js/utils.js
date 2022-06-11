@@ -1,26 +1,21 @@
 // https://lodash.com/
 
-export function isLength(value) {
-  return !isNaN(value) && value >= 0
-}
+export const isMobile = window.innerWidth < 768
 
-export function isEmpty(value) {
-  if (value == null) {
-    return true
-  }
+export const isLength = (value) => !isNaN(value) && value >= 0
 
-  if (Array.isArray(value)) {
-    return !value.length
-  }
-
-  if (typeof value === 'object') {
-    return !Object.keys(value).length
-  }
+export const isEmpty = (value) => {
+  if (value == null) return true
+  if (Array.isArray(value)) return !value.length
+  if (typeof value === 'object') return !Object.keys(value).length
 
   return true
 }
 
-export function valIndex(value, maxLength) {
+export const isFill = (value) => !isEmpty(value)
+export const isNum = (n) => !isNaN(parseFloat(n)) && isFinite(n)
+
+export const valIndex = (value, maxLength) => {
   const index = Number(value)
   if (isNaN(index)) return 0
   if (index < 0) return 0
@@ -28,11 +23,10 @@ export function valIndex(value, maxLength) {
   return index
 }
 
-export function or0(value) {
-  return isNaN(value) ? 0 : value
-}
+// Return the value is number or 0
+export const intOrZero = (value) => (isNaN(value) ? 0 : parseInt(value))
 
-export function setArrIndex(arr, index) {
+export const setArrIndex = (arr, index) => {
   if (!isLength(index)) return {}
   if (Number(index) >= arr.length) return {}
 

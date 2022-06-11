@@ -16,11 +16,7 @@ export default function Photos() {
   useEffect(() => {
     if (!state.hasAlbums) return
 
-    dispatch({
-      type: 'SELECT',
-      albumID: albumParam,
-      photoID: photoParam,
-    })
+    dispatch({ type: 'SET', albumID: albumParam, photoID: photoParam })
   }, [state.hasAlbums])
 
   useEffect(() => showStars(), [])
