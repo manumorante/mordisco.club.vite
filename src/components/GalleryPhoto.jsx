@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { useIntersection } from '../js/useIntersection'
 import Loading from './Loading'
 
@@ -6,7 +6,8 @@ export default function GalleryPhoto({
   src,
   width,
   height,
-  index,
+  albumID,
+  photoID,
   handleClick,
 }) {
   const [isInView, setIsInView] = useState(false)
@@ -34,7 +35,7 @@ export default function GalleryPhoto({
         }}
         src={isInView ? src : null}
         onLoad={handleLoad}
-        onClick={() => handleClick(index)}
+        onClick={() => handleClick({ albumID, photoID })}
       />
       {isInView && loading && <Loading />}
     </div>

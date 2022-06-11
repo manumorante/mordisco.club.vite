@@ -1,136 +1,127 @@
-import { isEmpty, isLength, or0 } from './utils'
+/* 
+  NOTAS GENERALES ENTRE MIS APPS
+  FUNCIONES
+  get: devuelve siempre una dupla [error, objeto]
+  set: devuelve el objeto o provoca error
+
+  Consejo
+  Usa las `get` en las `set`
+
+  Error en funciones
+  - si es `get` pinta un error en consola y devuelve una dupla [true, {}]
+  - si es `set` pinta un error en consola y provoca un error throw new Error()
+*/
+
+import { isEmpty, isLength, setArrIndex } from './utils'
+import { urlPush, urlPhotos, urlAlbum, urlPhoto } from './urlPush'
 const isMobile = window.innerWidth < 768
 
 export const initialState = {
   hasAlbums: false,
-  hasAlbum: false,
-  hasPhoto: false,
   albums: [],
   album: {},
   photo: {},
   isMobile: isMobile,
 }
 
-const err = (state, acc, error) => {
-  console.error(acc.type, error)
-  console.table(state)
-  console.table(acc)
+// Show error log in console and return the error dupla [true, {}]
+const err = (error) => {
+  console.log('🟥', error)
+  return [true, {}]
 }
 
-const selectItem = (arr, index) => {
-  if (!isLength(index)) return {}
-  if (index >= arr.length) return {}
+// ALBUM
+// To set an album you need albumID
+const getAlbum = (state, acc) => {
+  const id = acc.albumID
+  if (isNaN(id)) return err(`getAlbum() photoID(${id}) is NaN`)
 
-  return arr[parseInt(index)]
+  const album = setArrIndex(state.albums, id)
+  if (isEmpty(album)) return err(`getAlbum() album(${id}) not found`)
+
+  if (!album.hasOwnProperty('photos'))
+    err(`getAlbum() album(${id}) has no photos`)
+
+  if (isEmpty(album.photos))
+    return err(`getAlbum() album(${id}).photos isEmpty`)
+
+  return [false, album]
+}
+
+const setAlbum = (state, acc) => {
+  const album = getAlbum(state, acc)
+  if (album[0]) return state
+
+  return { ...state, album: album[1] }
+}
+
+// PHOTO
+// To set a photo you need albumID and photoID
+const getPhoto = (state, acc) => {
+  if (isNaN(acc.photoID))
+    return err(`getPhoto() photoID(${acc.photoID}) is NaN`)
+
+  if (isNaN(acc.albumID))
+    return err(`getPhoto() photoID(${acc.albumID}) is NaN`)
+
+  const album = getAlbum(state, acc)
+  if (album[0]) return [true, {}]
+
+  const photo = setArrIndex(album[1].photos, acc.photoID)
+  if (isEmpty(photo)) return err(`photo(${acc.photoID}) not found`)
+
+  return [false, photo]
 }
 
 const setPhoto = (state, acc) => {
-  if (isEmpty(state.albums)) {
-    err(state, acc, 'state.albums is empty')
-    return state
-  }
+  const album = getAlbum(state, acc)
+  if (album[0]) return state
 
-  if (isEmpty(state.album)) {
-    err(state, acc, 'state.album is empty')
-    return state
-  }
+  const photo = getPhoto(state, acc)
+  if (photo[0]) return state
 
-  if (isNaN(acc.photoIndex)) {
-    err(state, acc, 'acc.photoIndex isNaN')
-    return state
-  }
+  urlPhoto(acc.albumID, acc.photoID)
 
-  const photos = state.album.photos
-  if (isEmpty(photos)) {
-    err(state, acc, 'state.album.photos is empty')
-    return state
-  }
-
-  const index = Number(acc.photoIndex)
-
-  if (index >= photos.length) {
-    err(state, acc, 'acc.photoIndex is out of range')
-    return state
-  }
-
-  const photo = selectItem(photos, index)
-  if (isEmpty(photo)) {
-    err(state, acc, `photo not found`)
-    return state
-  }
-
-  return {
-    ...state,
-    photo: photo,
-    hasPhoto: true,
-  }
+  return { ...state, album: album[1], photo: photo[1] }
 }
 
 const actions = {
   INIT: (state, acc) => {
-    if (isEmpty(acc.albums)) {
-      err(state, acc, 'acc.albums is empty')
-      return state
-    }
-    return { ...state, albums: acc.albums, hasAlbums: true }
-  },
-
-  // Select Album and Photo (optional) by index
-  SELECT: (state, acc) => {
-    // Photo (and Album)
-    if (isLength(acc.albumIndex) && isLength(acc.photoIndex)) {
-      const album = selectItem(state.albums, acc.albumIndex)
-      if (isEmpty(album)) {
-        err(state, acc, `album (${acc.albumIndex}) not found`)
-        return state
-      }
-
-      const photo = selectItem(album.photos, acc.photoIndex)
-      if (isEmpty(photo)) {
-        err(state, acc, `photo (${acc.photoIndex}) not found`)
-        return state
-      }
-
-      return { ...state, album, photo, hasAlbum: true, hasPhoto: true }
-    }
-
-    // Album
-    if (isLength(acc.albumIndex)) {
-      const album = selectItem(state.albums, acc.albumIndex)
-      if (isEmpty(album)) {
-        err(state, acc, `album (${acc.albumIndex}) not found 2`)
-        return state
-      }
-
-      return { ...state, album: album, hasAlbum: true }
-    }
+    if (isEmpty(acc.albums)) throw new Error('INIT: albums isEmpty')
 
     return {
       ...state,
-    }
-  },
-
-  // Select Photo by index
-  SET_PHOTO: (state, acc) => {
-    return setPhoto(state, acc)
-  },
-
-  // Deselect Photo
-  UNSET_PHOTO: (state, _acc) => {
-    return {
-      ...state,
+      albums: acc.albums,
+      hasAlbums: true,
+      album: {},
       photo: {},
-      hasPhoto: false,
     }
+  },
+
+  // Select Album or Photo
+  SELECT: (state, acc) => {
+    if (!isNaN(acc.photoID)) return setPhoto(state, acc)
+    if (!isNaN(acc.albumID)) return setAlbum(state, acc)
+
+    return state
+  },
+
+  // Set Album or Photo by id
+  SET_ALBUM: (state, acc) => setAlbum(state, acc),
+  SET_PHOTO: (state, acc) => setPhoto(state, acc),
+
+  // Deselect Album and Photo
+  UNSET_ALBUM: (state, _acc) => {
+    return { ...state, album: {}, photo: {} }
+  },
+
+  UNSET_PHOTO: (state, _acc) => {
+    return { ...state, photo: {} }
   },
 
   MODAL_CLOSE: (state, _acc) => {
-    history.pushState(null, '', '/photos/' + state.album.id)
-    return {
-      ...state,
-      photo: {},
-      hasPhoto: false,
-    }
+    urlAlbum(state.album.id)
+    return { ...state, photo: {} }
   },
 
   NEXT_PHOTO: (state, _acc) => {
@@ -140,8 +131,8 @@ const actions = {
     history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
 
     return setPhoto(state, {
-      albumIndex: state.album.id,
-      photoIndex: id,
+      albumID: state.album.id,
+      photoID: id,
     })
   },
 
@@ -152,8 +143,8 @@ const actions = {
     history.pushState(null, '', '/photos/' + state.album.id + '/' + id)
 
     return setPhoto(state, {
-      albumIndex: state.album.id,
-      photoIndex: id,
+      albumID: state.album.id,
+      photoID: id,
     })
   },
 }

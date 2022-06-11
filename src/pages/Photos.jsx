@@ -7,6 +7,7 @@ import Albums from '../components/Gallery/Albums'
 import BigPhoto from '../components/BigPhoto'
 import Modal from '../components/Modal'
 import showStars from '../js/stars'
+import { isEmpty } from '../js/utils'
 
 export default function Photos() {
   const { state, dispatch } = useApiContext()
@@ -17,8 +18,8 @@ export default function Photos() {
 
     dispatch({
       type: 'SELECT',
-      albumIndex: albumParam,
-      photoIndex: photoParam,
+      albumID: albumParam,
+      photoID: photoParam,
     })
   }, [state.hasAlbums])
 
@@ -28,21 +29,13 @@ export default function Photos() {
     <div className='Photos max-w-4xl mx-8 lg:mx-auto'>
       <Logo />
 
-      {!state.hasAlbum && state.albums.length > 0 && (
+      {isEmpty(state.album) ? (
         <Albums albums={state.albums} dispatch={dispatch} />
+      ) : (
+        <Gallery album={state.album} dispatch={dispatch} />
       )}
 
-      {state.hasAlbum && (
-        <div>
-          <Gallery
-            album={state.album}
-            albumIndex={state.album.id}
-            dispatch={dispatch}
-          />
-        </div>
-      )}
-
-      <Modal isOpen={state.hasPhoto} dispatch={dispatch}>
+      <Modal isOpen={!isEmpty(state.photo)} dispatch={dispatch}>
         <BigPhoto path={state.album.path} photo={state.photo} />
       </Modal>
 

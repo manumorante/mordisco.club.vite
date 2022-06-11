@@ -1,13 +1,12 @@
 import React from 'react'
 import GalleryPhoto from './GalleryPhoto'
 
-export default function Gallery({ album, albumIndex, dispatch }) {
-  const handleClick = (photoIndex) => {
-    history.pushState(null, '', '/photos/' + albumIndex + '/' + photoIndex)
+export default function Gallery({ album, dispatch }) {
+  const handleClick = ({ albumID, photoID }) => {
     dispatch({
       type: 'SET_PHOTO',
-      albumIndex: albumIndex,
-      photoIndex: photoIndex,
+      albumID: albumID,
+      photoID: photoID,
     })
   }
 
@@ -20,7 +19,8 @@ export default function Gallery({ album, albumIndex, dispatch }) {
             src={`${album.path}/s/${photo.file}`}
             width={photo.width}
             height={photo.height}
-            index={i}
+            albumID={album.id}
+            photoID={i}
             handleClick={handleClick}
           />
         )
