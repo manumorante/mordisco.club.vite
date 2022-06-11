@@ -13,7 +13,7 @@ export default function Gallery({ album, albumIndex, dispatch }) {
   }
 
   return (
-    <div className='Gallery mm-masonry'>
+    <div className='Gallery'>
       {album.photos.map((photo, i) => {
         // Width will be the width of the column and height is
         // calculated proportionally to the new width.

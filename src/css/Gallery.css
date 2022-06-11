@@ -1,21 +1,13 @@
-/* MM Masonry cofig */
-:root {
-  --mm-masonry-col-width: 285;
-  --mm-masonry-gap: 40;
-
-  @media (min-width: 768px) and (max-width: 895px) {
-    --mm-masonry-col-width: 352;
-    --mm-masonry-gap: 16;
-  }
+.Gallery {
+  @apply columns-1 sm:columns-2 md:columns-3 break-inside-avoid gap-x-4;
 }
 
-/* Gallery */
 .GalleryPhoto {
-  @apply relative bg-neutral-900/50;
+  @apply bg-neutral-900/50 mb-4 relative;
 }
 
 .GalleryPhoto__img {
-  @apply relative z-10 cursor-pointer;
+  @apply z-10 cursor-pointer relative;
 }
 
 .BigPhoto {

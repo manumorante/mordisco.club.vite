@@ -25,12 +25,12 @@ export default function GalleryPhoto({
   return (
     <div
       ref={imgRef}
-      className='GalleryPhoto mm-masonry__item'
+      className='GalleryPhoto'
       style={{ '--w': width, '--h': height }}>
       {isInView && (
         <>
           <img
-            className='GalleryPhoto__img mm-masonry__img'
+            className='GalleryPhoto__img'
             src={src}
             onLoad={handleLoad}
             onClick={() => handleClick(index)}

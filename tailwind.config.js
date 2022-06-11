@@ -7,8 +7,8 @@ module.exports = {
           'wiggle-r 1s cubic-bezier(0.5, 0.8, 0.5, 0.2) infinite forwards',
         'wiggle-l':
           'wiggle-l 1s cubic-bezier(0.5, 0.8, 0.5, 0.2) infinite forwards',
-        'in-delay': 'fade-in 1s 2s forwards',
-        'out-delay': 'fade-out 1s 2s forwards',
+        'in-delay': 'fade-in 0.5s 2s forwards',
+        'out-delay': 'fade-out 0.5s 2s forwards',
       },
       keyframes: {
         'wiggle-l': {
