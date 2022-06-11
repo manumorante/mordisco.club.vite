@@ -17,15 +17,15 @@ let DATA = {
 
 const root = 'public/data/albums'
 
-function createAlbum(path, albumIndex) {
+function createAlbum(path, albumID) {
   let album = {
     created_at: TODAY,
-    id: albumIndex,
+    id: albumID,
     path: path.substring(6),
   }
 
   let files = fs.readdirSync(path)
-  let photoIndex = 0
+  let photoID = 0
   let minHeight = 6000
   let photos = []
 
@@ -42,11 +42,12 @@ function createAlbum(path, albumIndex) {
 
       photos.push({
         file: file,
-        id: photoIndex,
+        id: photoID,
+        albumID: albumID,
         width: size.width,
         height: size.height,
       })
-      photoIndex = photoIndex + 1
+      photoID = photoID + 1
     }
   })
 
@@ -58,11 +59,11 @@ function createAlbum(path, albumIndex) {
 
 function getAlbums() {
   const files = fs.readdirSync(root)
-  let albumIndex = 0
+  let albumID = 0
   files.forEach(function (file) {
     if (fs.statSync(root + '/' + file).isDirectory()) {
-      DATA.albums.push(createAlbum(root + '/' + file, albumIndex))
-      albumIndex = albumIndex + 1
+      DATA.albums.push(createAlbum(root + '/' + file, albumID))
+      albumID = albumID + 1
     }
   })
 
