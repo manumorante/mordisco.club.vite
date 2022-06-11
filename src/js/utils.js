@@ -31,3 +31,10 @@ export function valIndex(value, maxLength) {
 export function or0(value) {
   return isNaN(value) ? 0 : value
 }
+
+export function setArrIndex(arr, index) {
+  if (!isLength(index)) return {}
+  if (Number(index) >= arr.length) return {}
+
+  return arr[parseInt(index)]
+}
