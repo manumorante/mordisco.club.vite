@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function Albums({ albums, dispatch }) {
+export default function Albums({ albums, acc }) {
   const handleClick = (albumID) => {
-    dispatch({ type: 'SET_ALBUM', albumID: albumID })
+    acc({ type: 'SET_ALBUM', albumID: albumID })
   }
 
   return (

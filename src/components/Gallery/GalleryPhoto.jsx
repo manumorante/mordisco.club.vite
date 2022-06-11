@@ -1,15 +1,8 @@
 import React, { useState, useRef } from 'react'
-import { useIntersection } from '../js/useIntersection'
+import { useIntersection } from '../../js/useIntersection'
 import Loading from './Loading'
 
-export default function GalleryPhoto({
-  src,
-  width,
-  height,
-  albumID,
-  photoID,
-  handleClick,
-}) {
+export default function GalleryPhoto({ src, width, height, albumID, photoID, handleClick }) {
   const [isInView, setIsInView] = useState(false)
   const [loading, setLoading] = useState(true)
   const imgRef = useRef()

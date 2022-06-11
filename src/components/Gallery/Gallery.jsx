@@ -1,9 +1,9 @@
 import React from 'react'
 import GalleryPhoto from './GalleryPhoto'
 
-export default function Gallery({ album, dispatch }) {
+export default function Gallery({ album, acc }) {
   const handleClick = ({ albumID, photoID }) => {
-    dispatch({
+    acc({
       type: 'SET_PHOTO',
       albumID: albumID,
       photoID: photoID,

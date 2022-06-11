@@ -12,17 +12,8 @@
   - si es `set` pinta un error en consola y provoca un error throw new Error()
 */
 
-import { isNum, isEmpty, isLength, setArrIndex } from './utils'
-import { urlPush, urlPhotos, urlAlbum, urlPhoto } from './urlPush'
-const isMobile = window.innerWidth < 768
-
-export const initialState = {
-  hasAlbums: false,
-  albums: [],
-  album: {},
-  photo: {},
-  isMobile: isMobile,
-}
+import { isNum, isEmpty, setArrIndex } from './utils'
+import { urlAlbum, urlPhoto } from './urlPush'
 
 // Show error log in console and return the error dupla [true, {}]
 const err = (error) => {
@@ -63,7 +54,7 @@ const actions = {
   INIT: (state, acc) => {
     if (isEmpty(acc.albums)) throw new Error('INIT: albums isEmpty')
 
-    return { ...state, albums: acc.albums, hasAlbums: true, album: {}, photo: {} }
+    return { ...state, albums: acc.albums, success: true }
   },
 
   // Select Album or Photo

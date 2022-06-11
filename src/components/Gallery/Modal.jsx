@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react'
 import { XIcon } from '@heroicons/react/solid'
 
-export default function Modal({ children, isOpen, dispatch }) {
+export default function Modal({ children, isOpen, acc }) {
   document.documentElement.classList.toggle('modal-is-open', isOpen)
 
   // Keybindings
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') dispatch({ type: 'MODAL_CLOSE' })
-      if (e.key === 'ArrowRight') dispatch({ type: 'NEXT_PHOTO' })
-      if (e.key === 'ArrowLeft') dispatch({ type: 'PREV_PHOTO' })
+      if (e.key === 'Escape') acc({ type: 'MODAL_CLOSE' })
+      if (e.key === 'ArrowRight') acc({ type: 'NEXT_PHOTO' })
+      if (e.key === 'ArrowLeft') acc({ type: 'PREV_PHOTO' })
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   const handleClose = () => {
-    dispatch({ type: 'MODAL_CLOSE' })
+    acc({ type: 'MODAL_CLOSE' })
   }
 
   return (

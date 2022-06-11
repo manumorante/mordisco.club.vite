@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
+import { isEmpty, isFill } from '../js/utils'
+
 import Logo from '../components/Logo'
-import Gallery from '../components/Gallery'
-import Albums from '../components/Gallery/Albums'
-import BigPhoto from '../components/BigPhoto'
-import Modal from '../components/Modal'
+import { Albums, Gallery, Modal, BigPhoto } from '../components/Gallery'
+
 import showStars from '../js/stars'
-import { isEmpty } from '../js/utils'
 
 export default function Photos() {
-  const { state, dispatch } = useApiContext()
+  const { state, acc } = useApiContext()
   const { albumParam, photoParam } = useParams()
 
   useEffect(() => {
-    if (!state.hasAlbums) return
+    if (!state.success) return
 
-    dispatch({ type: 'SET', albumID: albumParam, photoID: photoParam })
-  }, [state.hasAlbums])
+    acc({ type: 'SET', albumID: albumParam, photoID: photoParam })
+  }, [state.success])
 
   useEffect(() => showStars(), [])
 
@@ -25,14 +24,12 @@ export default function Photos() {
     <div className='Photos max-w-4xl mx-8 lg:mx-auto'>
       <Logo />
 
-      {isEmpty(state.album) ? (
-        <Albums albums={state.albums} dispatch={dispatch} />
-      ) : (
-        <Gallery album={state.album} dispatch={dispatch} />
-      )}
+      {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} acc={acc} />}
 
-      <Modal isOpen={!isEmpty(state.photo)} dispatch={dispatch}>
+      {/* <Modal isOpen={isFill(state.photo)} acc={acc}> */}
+      <Modal isOpen={true} acc={acc}>
         <BigPhoto path={state.album.path} photo={state.photo} />
+        <p>hoola</p>
       </Modal>
 
       <Logo />
