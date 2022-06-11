@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
 import Logo from '../components/Logo'
 import Gallery from '../components/Gallery'
+import Albums from '../components/Gallery/Albums'
 import BigPhoto from '../components/BigPhoto'
 import Modal from '../components/Modal'
 import showStars from '../js/stars'
@@ -27,14 +28,9 @@ export default function Photos() {
     <div className='Photos max-w-4xl mx-8 lg:mx-auto'>
       <Logo />
 
-      {state.albums.length > 0 &&
-        state.albums.map((album) => {
-          return (
-            <a className='p-2 inline-block' key={album.id} href={`/photos/${album.id}`}>
-              {album.id + 1}
-            </a>
-          )
-        })}
+      {!state.hasAlbum && state.albums.length > 0 && (
+        <Albums albums={state.albums} dispatch={dispatch} />
+      )}
 
       {state.hasAlbum && (
         <div>
