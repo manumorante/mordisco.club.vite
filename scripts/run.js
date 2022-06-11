@@ -22,25 +22,36 @@ function createAlbum(path, albumIndex) {
     created_at: TODAY,
     id: albumIndex,
     path: path.substring(6),
-    photos: [],
   }
 
   let files = fs.readdirSync(path)
-  files = randomizeArray(files)
   let photoIndex = 0
+  let minHeight = 6000
+  let photos = []
+
+  // Randomize the order of the photos
+  files = randomizeArray(files)
+
   files.forEach(function (file) {
     const ext = file.split('.').pop()
     if (ext === 'jpg') {
-      const dimensions = sizeOf(path + '/' + file)
-      album.photos.push({
+      const size = sizeOf(path + '/' + file)
+
+      // Calculating the minimum height
+      minHeight = size.height < minHeight ? size.height : minHeight
+
+      photos.push({
         file: file,
         id: photoIndex,
-        width: dimensions.width,
-        height: dimensions.height,
+        width: size.width,
+        height: size.height,
       })
       photoIndex = photoIndex + 1
     }
   })
+
+  album.minHeight = minHeight
+  album.photos = photos
 
   return album
 }
