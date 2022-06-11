@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useIntersection } from '../js/useIntersection'
 import Loading from './Loading'
 
@@ -23,21 +23,20 @@ export default function GalleryPhoto({
   }
 
   return (
-    <div
-      ref={imgRef}
-      className='GalleryPhoto'
-      style={{ '--w': width, '--h': height }}>
-      {isInView && (
-        <>
-          <img
-            className='GalleryPhoto__img'
-            src={src}
-            onLoad={handleLoad}
-            onClick={() => handleClick(index)}
-          />
-          {loading && <Loading />}
-        </>
-      )}
+    <div ref={imgRef} className='GalleryPhoto'>
+      <img
+        width={width}
+        height='auto'
+        className='GalleryPhoto__img'
+        style={{
+          aspectRatio: `${width} / ${height}`,
+          ...(loading && { opacity: 0 }),
+        }}
+        src={isInView ? src : null}
+        onLoad={handleLoad}
+        onClick={() => handleClick(index)}
+      />
+      {isInView && loading && <Loading />}
     </div>
   )
 }

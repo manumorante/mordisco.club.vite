@@ -1,5 +1,5 @@
 .Gallery {
-  @apply columns-1 sm:columns-2 md:columns-3 break-inside-avoid gap-x-4;
+  @apply columns-1 sm:columns-2 md:columns-3 gap-x-4 break-inside-avoid;
 }
 
 .GalleryPhoto {
@@ -7,7 +7,7 @@
 }
 
 .GalleryPhoto__img {
-  @apply z-10 cursor-pointer relative;
+  @apply w-full z-10 relative;
 }
 
 .BigPhoto {
