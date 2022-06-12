@@ -2,6 +2,9 @@ module.exports = {
   content: ['./src/**/*.{html,jsx}', './index.html'],
   theme: {
     extend: {
+      boxShadow: {
+        soft: '0 0 24px 16px #111111',
+      },
       animation: {
         'wiggle-r': 'wiggle-r 1s cubic-bezier(0.5, 0.8, 0.5, 0.2) infinite forwards',
         'wiggle-l': 'wiggle-l 1s cubic-bezier(0.5, 0.8, 0.5, 0.2) infinite forwards',
