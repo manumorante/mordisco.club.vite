@@ -17,8 +17,12 @@ let DATA = {
 
 const root = 'public/data/albums'
 
-function createAlbum(path, albumID) {
+function createAlbum(root, folder, albumID) {
+  const path = root + '/' + folder
+  const event_date = new Date(folder)
+
   let album = {
+    date: event_date,
     created_at: TODAY,
     id: albumID,
     path: path.replace('public', ''),
@@ -63,7 +67,7 @@ function getAlbums() {
   let albumID = 0
   files.forEach(function (file) {
     if (fs.statSync(root + '/' + file).isDirectory()) {
-      DATA.albums.push(createAlbum(root + '/' + file, albumID))
+      DATA.albums.push(createAlbum(root, file, albumID))
       albumID = albumID + 1
     }
   })
