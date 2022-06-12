@@ -6,6 +6,22 @@
   @apply absolute top-6 right-6 w-8 h-8 text-white cursor-pointer;
 }
 
+.Modal__arrow {
+  @apply absolute px-4 top-12 bottom-12 cursor-pointer flex items-center;
+}
+
+.Modal__arrow svg {
+  @apply w-8 h-8 text-white;
+}
+
+.Modal__arrow.--left {
+  @apply left-6;
+}
+
+.Modal__arrow.--right {
+  @apply right-6;
+}
+
 .Modal__overlay {
   @apply fixed z-20 inset-0 bg-black/60 backdrop-grayscale;
 }

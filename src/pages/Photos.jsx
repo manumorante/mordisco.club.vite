@@ -21,7 +21,7 @@ export default function Photos() {
   useEffect(() => showStars(), [])
 
   return (
-    <div className='Photos max-w-4xl mx-8 lg:mx-auto'>
+    <div className='Photos'>
       <Logo />
 
       {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} acc={acc} />}
