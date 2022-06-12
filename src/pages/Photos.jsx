@@ -26,10 +26,8 @@ export default function Photos() {
 
       {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} acc={acc} />}
 
-      {/* <Modal isOpen={isFill(state.photo)} acc={acc}> */}
-      <Modal isOpen={true} acc={acc}>
+      <Modal isOpen={isFill(state.photo)} acc={acc}>
         <BigPhoto path={state.album.path} photo={state.photo} />
-        <p>hoola</p>
       </Modal>
 
       <Logo />

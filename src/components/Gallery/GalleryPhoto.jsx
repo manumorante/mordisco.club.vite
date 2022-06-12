@@ -20,7 +20,6 @@ export default function GalleryPhoto({ src, width, height, albumID, photoID, han
     <div ref={imgRef} className='GalleryPhoto'>
       <img
         width={width}
-        height='auto'
         className='GalleryPhoto__img'
         style={{
           aspectRatio: `${width} / ${height}`,

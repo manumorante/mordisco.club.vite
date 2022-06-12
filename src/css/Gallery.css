@@ -14,6 +14,6 @@
   @apply w-auto h-full overflow-hidden flex justify-center relative;
 }
 
-.BigPhoto__img {
+.BigPhoto .img {
   @apply absolute w-auto h-full object-contain;
 }
