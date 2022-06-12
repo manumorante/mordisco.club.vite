@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useIntersection } from '../../js/useIntersection'
 import Loading from './Loading'
 
-export default function GalleryPhoto({ src, width, height, albumID, photoID, handleClick }) {
+export default function GalleryPhoto({ photo, acc }) {
   const [isInView, setIsInView] = useState(false)
   const [loading, setLoading] = useState(true)
   const imgRef = useRef()
@@ -12,22 +12,24 @@ export default function GalleryPhoto({ src, width, height, albumID, photoID, han
     setLoading(true)
   })
 
-  const handleLoad = () => {
-    setLoading(false)
-  }
-
   return (
     <div ref={imgRef} className='GalleryPhoto'>
       <img
-        width={width}
+        width={photo.width}
         className='GalleryPhoto__img'
         style={{
-          aspectRatio: `${width} / ${height}`,
+          aspectRatio: `${photo.width} / ${photo.height}`,
           ...(loading && { opacity: 0 }),
         }}
-        src={isInView ? src : null}
-        onLoad={handleLoad}
-        onClick={() => handleClick({ albumID, photoID })}
+        src={isInView ? photo.small : null}
+        onLoad={() => setLoading(false)}
+        onClick={() =>
+          acc({
+            type: 'SET_PHOTO',
+            albumID: photo.albumID,
+            photoID: photo.id,
+          })
+        }
       />
       {isInView && loading && <Loading />}
     </div>

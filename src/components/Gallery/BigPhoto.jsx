@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Loading from './Loading'
 
-export default function BigPhoto({ path, photo }) {
+export default function BigPhoto({ photo }) {
   const [loadSm, setLoadSm] = useState(false)
   const [loadBig, setLoadBig] = useState(false)
   const [smClass, setSmClass] = useState('')
   const [bigClass, setBigClass] = useState('')
   const [zoomed, setZoomed] = useState(false)
-  const smSrc = `${path}/s/${photo.file}`
-  const src = `${path}/${photo.file}`
 
   useEffect(() => {
     // Grande cargada chica hizo el zoom-in
@@ -34,8 +32,8 @@ export default function BigPhoto({ path, photo }) {
 
   return (
     <div className='BigPhoto'>
-      <img className={`img ${smClass}`} src={smSrc} onLoad={() => setLoadSm(true)} />
-      <img className={`img ${bigClass}`} src={src} onLoad={() => setLoadBig(true)} />
+      <img className={`img ${smClass}`} src={photo.small} onLoad={() => setLoadSm(true)} />
+      <img className={`img ${bigClass}`} src={photo.big} onLoad={() => setLoadBig(true)} />
       {loadSm && zoomed && !loadBig && <Loading />}
     </div>
   )

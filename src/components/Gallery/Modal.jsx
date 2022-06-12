@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { XIcon } from '@heroicons/react/solid'
+import { isFill } from '../../js/utils'
+import BigPhoto from './BigPhoto'
 
-export default function Modal({ children, isOpen, acc }) {
+export default function Modal({ photo, acc }) {
+  const isOpen = isFill(photo)
+
   document.documentElement.classList.toggle('modal-is-open', isOpen)
 
   // Keybindings
@@ -23,7 +27,7 @@ export default function Modal({ children, isOpen, acc }) {
     isOpen && (
       <>
         <div className='Modal'>
-          {children}
+          <BigPhoto photo={photo} />
           <XIcon className='Modal__close' onClick={handleClose} />
         </div>
         <div className='Modal__overlay' onClick={handleClose}></div>

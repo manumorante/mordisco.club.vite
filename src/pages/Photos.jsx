@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
-import { isEmpty, isFill } from '../js/utils'
+import { isEmpty } from '../js/utils'
 
 import Logo from '../components/Logo'
-import { Albums, Gallery, Modal, BigPhoto } from '../components/Gallery'
+import { Albums, Gallery, Modal } from '../components/Gallery'
 
 import showStars from '../js/stars'
 
@@ -26,9 +26,7 @@ export default function Photos() {
 
       {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} acc={acc} />}
 
-      <Modal isOpen={isFill(state.photo)} acc={acc}>
-        <BigPhoto path={state.album.path} photo={state.photo} />
-      </Modal>
+      <Modal photo={state.photo} acc={acc} />
 
       <Logo />
     </div>

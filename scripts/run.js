@@ -21,7 +21,7 @@ function createAlbum(path, albumID) {
   let album = {
     created_at: TODAY,
     id: albumID,
-    path: path.substring(6),
+    path: path.replace('public', ''),
   }
 
   let files = fs.readdirSync(path)
@@ -41,7 +41,8 @@ function createAlbum(path, albumID) {
       minHeight = size.height < minHeight ? size.height : minHeight
 
       photos.push({
-        file: file,
+        big: (path + '/' + file).replace('public', ''),
+        small: (path + '/s/' + file).replace('public', ''),
         id: photoID,
         albumID: albumID,
         width: size.width,
