@@ -3,7 +3,18 @@
 }
 
 .GalleryPhoto {
-  @apply bg-neutral-900/50 mb-4 relative;
+  @apply bg-neutral-900/50 mb-8 relative;
+}
+
+.GalleryPhoto::after {
+  @apply block content-[''] absolute inset-0
+
+  /* Shadow only for desk */
+  sm:shadow-soft sm:transition-transform sm:duration-500 sm:scale-90;
+}
+
+.GalleryPhoto:hover::after {
+  @apply sm:scale-100;
 }
 
 .GalleryPhoto__img {

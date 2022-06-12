@@ -69,6 +69,8 @@ const actions = {
     const album = getAlbum(state, acc)
     if (album[0]) return state
 
+    urlAlbum(acc.albumID)
+
     return { ...state, album: album[1] }
   },
 
