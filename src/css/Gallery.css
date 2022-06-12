@@ -28,3 +28,15 @@
 .BigPhoto .img {
   @apply absolute w-auto h-full object-contain;
 }
+
+.AlbumCover {
+  @apply rounded-lg mb-4 relative overflow-hidden w-full h-96;
+}
+
+.AlbumCover__img {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+
+.AlbumCover__wrap {
+  @apply transition-opacity;
+}

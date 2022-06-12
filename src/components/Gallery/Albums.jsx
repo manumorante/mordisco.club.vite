@@ -1,35 +1,38 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { CalendarIcon, CameraIcon } from '@heroicons/react/outline'
+import AlbumCover from './AlbumCover'
 
 export default function Albums({ albums, acc }) {
-  const [rdn, setRnd] = useState(0)
+  albums = albums.slice().reverse()
 
   const handleClick = (albumID) => {
     acc({ type: 'SET_ALBUM', albumID: albumID })
   }
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setCover(album.photos[0].small)
-  //   }, 1000)
-  //   return () => clearTimeout(timer)
-  // }, [])
-
   return (
-    <nav className='GalleryAlbums'>
+    <nav className='GalleryAlbums max-w-xl mx-auto flex flex-col gap-8'>
+      <p className='flex gap-2 justify-end items-center text-2xl text-neutral-700 mb-6'>
+        <CalendarIcon className='w-6 h-6' />
+        <span className='font-light'>2022</span>
+      </p>
+
       {albums.map((album) => {
-        const cover = album.photos[rdn].small
         const date = new Date(album.date)
 
         return (
           <div
             key={album.id}
-            className='rounded-xl p-4 mb-4 bg-neutral-900/50 hover:bg-neutral-900'
+            className='GalleryAlbums__album rounded-xl p-6 sm:p-8 bg-neutral-900/50 hover:bg-neutral-900 transition-colors cursor-pointer'
             onClick={() => handleClick(album.id)}>
-            <img className='block mb-4' src={cover} alt='Album' />
-            <div className='meta'>
-              <p className='font-bold capitalize'>
-                {date.toLocaleDateString('es-ES', { month: 'long' })} {date.getFullYear()}
-              </p>
+            <AlbumCover album={album} />
+
+            <div className='meta flex justify-between items-center'>
+              <span className='font-light text-2xl capitalize'>
+                {date.toLocaleDateString('es-ES', { month: 'long' })}
+              </span>
+              <div className='text-slate-600 flex gap-2'>
+                <span>{album.photos.length}</span>
+                <CameraIcon className='w-6 h-6' />
+              </div>
             </div>
           </div>
         )
