@@ -1,11 +1,11 @@
 .Gallery {
   @apply block
-  mx-8 lg:mx-auto lg:px-40
-  columns-xs gap-x-8 break-inside-avoid;
+  lg:mx-auto lg:px-40
+  columns-2xs gap-x-9 break-inside-avoid;
 }
 
 .GalleryPhoto {
-  @apply bg-neutral-900/50 mb-8 relative;
+  @apply bg-neutral-900/50 mb-9 relative;
 }
 
 .GalleryPhoto:hover::after {
@@ -25,7 +25,7 @@
 }
 
 .AlbumCover {
-  @apply rounded-lg mb-4 relative overflow-hidden w-full h-96;
+  @apply rounded-lg mb-4 relative overflow-hidden w-full h-48 sm:h-96;
 }
 
 .AlbumCover__img {

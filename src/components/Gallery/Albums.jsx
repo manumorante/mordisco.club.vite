@@ -10,7 +10,7 @@ export default function Albums({ albums, acc }) {
   }
   return (
     <nav className='GalleryAlbums max-w-xl mx-auto flex flex-col gap-8'>
-      <p className='flex gap-2 justify-end items-center text-2xl text-neutral-700 mb-6'>
+      <p className='flex gap-2 justify-end items-center text-2xl text-neutral-700'>
         <CalendarIcon className='w-6 h-6' />
         <span className='font-light'>2022</span>
       </p>
@@ -21,7 +21,7 @@ export default function Albums({ albums, acc }) {
         return (
           <div
             key={album.id}
-            className='GalleryAlbums__album rounded-xl p-6 sm:p-8 bg-neutral-900/50 hover:bg-neutral-900 transition-colors cursor-pointer'
+            className='GalleryAlbums__album rounded-xl p-6 sm:p-8 bg-slate-800 sm:hover:bg-neutral-900 transition-colors cursor-pointer'
             onClick={() => handleClick(album.id)}>
             <AlbumCover album={album} />
 

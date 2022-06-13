@@ -7,7 +7,7 @@
 }
 
 .Modal__arrow {
-  @apply absolute px-4 top-12 bottom-12 cursor-pointer flex items-center;
+  @apply absolute px-4 top-24 bottom-24 cursor-pointer flex items-center;
 }
 
 .Modal__arrow svg {
@@ -15,11 +15,11 @@
 }
 
 .Modal__arrow.--left {
-  @apply left-6;
+  @apply left-0;
 }
 
 .Modal__arrow.--right {
-  @apply right-6;
+  @apply right-0;
 }
 
 .Modal__overlay {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { isMobile } from '../../js/utils'
 import Loading from './Loading'
 
 export default function BigPhoto({ photo }) {
@@ -9,6 +10,8 @@ export default function BigPhoto({ photo }) {
   const [zoomed, setZoomed] = useState(false)
 
   useEffect(() => {
+    if (isMobile) return false
+
     // Grande cargada chica hizo el zoom-in
     if (loadBig && zoomed) {
       setBigClass('opacity-100')
@@ -32,7 +35,7 @@ export default function BigPhoto({ photo }) {
 
   return (
     <div className='BigPhoto'>
-      <img className={`img ${smClass}`} src={photo.small} onLoad={() => setLoadSm(true)} />
+      {!isMobile && <img className={`img ${smClass}`} src={photo.small} onLoad={() => setLoadSm(true)} />}
       <img className={`img ${bigClass}`} src={photo.big} onLoad={() => setLoadBig(true)} />
       {loadSm && zoomed && !loadBig && <Loading />}
     </div>

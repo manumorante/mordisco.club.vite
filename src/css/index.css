@@ -8,10 +8,6 @@
 @import './Modal.css';
 
 @layer base {
-  :root {
-    --container: 896px;
-  }
-
   html,
   body {
     @apply h-full;
@@ -22,9 +18,7 @@
   }
 
   .App {
-    /* max-width: var(--container); */
-
-    @apply h-full    
+    @apply h-full px-6
     /* Para que quede por encima del fondo de `canvas` */
     relative z-10;
   }
