@@ -32,3 +32,21 @@ export const setArrIndex = (arr, index) => {
 
   return arr[parseInt(index)]
 }
+
+// Generate a random number between min and max
+export const random = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+// Cut a random item from original array and return it
+export const cutRandom = (arr) => {
+  if (arr.length === 0) return null
+
+  const i = random(0, arr.length - 1)
+  const item = arr[i]
+  arr.splice(i, 1)
+
+  return item
+}

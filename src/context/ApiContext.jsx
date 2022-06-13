@@ -1,13 +1,15 @@
 import React, { useEffect, useContext, createContext, useReducer } from 'react'
 import { isMobile } from '../js/utils'
 import { reducer } from '../js/reducer'
-import data from '/public/data/albums.json'
+import albums from '/public/data/albums.json'
+import phrases from '/public/data/phrases.json'
 
 const initialState = {
   success: false,
   albums: [],
   album: {},
   photo: {},
+  phrases: phrases.phrases,
   isMobile: isMobile,
 }
 
@@ -17,7 +19,7 @@ const ApiContext = ({ children }) => {
   const [state, acc] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    acc({ type: 'INIT', albums: data.albums })
+    acc({ type: 'INIT', albums: albums.albums })
   }, [])
 
   return <apiContext.Provider value={{ state, acc }}>{children}</apiContext.Provider>

@@ -24,7 +24,11 @@ export default function Photos() {
     <div className='Photos'>
       <Logo />
 
-      {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} acc={acc} />}
+      {isEmpty(state.album) ? (
+        <Albums albums={state.albums} acc={acc} />
+      ) : (
+        <Gallery album={state.album} phrases={state.phrases} acc={acc} />
+      )}
 
       <Modal photo={state.photo} acc={acc} />
 
