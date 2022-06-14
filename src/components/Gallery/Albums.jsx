@@ -1,6 +1,6 @@
 import React from 'react'
 import { CalendarIcon, CameraIcon } from '@heroicons/react/outline'
-import AlbumCover from './AlbumCover'
+import Cover from './Cover'
 
 export default function Albums({ albums, acc }) {
   albums = albums.slice().reverse()
@@ -23,7 +23,7 @@ export default function Albums({ albums, acc }) {
             key={album.id}
             className='GalleryAlbums__album rounded-xl p-6 sm:p-8 bg-slate-800 sm:hover:bg-neutral-900 transition-colors cursor-pointer'
             onClick={() => handleClick(album.id)}>
-            <AlbumCover album={album} />
+            <Cover album={album} />
 
             <div className='meta flex justify-between items-center'>
               <span className='font-light text-2xl capitalize'>

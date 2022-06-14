@@ -1,8 +1,8 @@
-.Loading {
+.Spinner {
   @apply absolute inset-0 opacity-0 animate-in-delay grid place-content-center;
 }
 
-.wiggle-spinner {
+.Spinner__wiggle {
   @apply rounded-full
   w-8 h-8
   relative
@@ -10,8 +10,8 @@
   mix-blend-exclusion;
 }
 
-.wiggle-spinner:before,
-.wiggle-spinner:after {
+.Spinner__wiggle:before,
+.Spinner__wiggle:after {
   @apply content-['']
 	absolute
   inset-0
@@ -21,10 +21,10 @@
   mix-blend-screen;
 }
 
-.wiggle-spinner:after {
+.Spinner__wiggle:after {
   @apply bg-sky-400 animate-wiggle-l;
 }
 
-.wiggle-spinner:before {
+.Spinner__wiggle:before {
   @apply animate-wiggle-r;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { isMobile } from '../../js/utils'
-import Loading from './Loading'
+import Spinner from './Spinner'
 
 export default function BigPhoto({ photo }) {
   const [loadSm, setLoadSm] = useState(false)
@@ -37,7 +37,7 @@ export default function BigPhoto({ photo }) {
     <div className='BigPhoto'>
       {!isMobile && <img className={`img ${smClass}`} src={photo.small} onLoad={() => setLoadSm(true)} />}
       <img className={`img ${bigClass}`} src={photo.big} onLoad={() => setLoadBig(true)} />
-      {loadSm && zoomed && !loadBig && <Loading />}
+      {loadSm && zoomed && !loadBig && <Spinner />}
     </div>
   )
 }

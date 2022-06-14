@@ -4,16 +4,16 @@
   columns-2xs gap-x-9 break-inside-avoid;
 }
 
-.GalleryPhoto {
-  @apply bg-neutral-900/50 mb-9 relative;
+.Photo {
+  @apply bg-neutral-900/50 relative;
 }
 
-.GalleryPhoto:hover::after {
+.Photo:hover::after {
   @apply sm:scale-100;
 }
 
-.GalleryPhoto__img {
-  @apply w-full z-10 relative;
+.Photo__img {
+  @apply absolute w-full h-full z-10 object-cover;
 }
 
 .BigPhoto {
@@ -24,11 +24,11 @@
   @apply absolute w-auto h-full object-contain;
 }
 
-.AlbumCover {
+.Cover {
   @apply rounded-lg mb-4 relative overflow-hidden w-full h-48 sm:h-96;
 }
 
-.AlbumCover__img {
+.Cover__img {
   @apply absolute inset-0 w-full h-full object-cover;
 }
 

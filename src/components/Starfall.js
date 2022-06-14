@@ -1,7 +1,8 @@
 import Starback from 'starback'
 
-export default function showStars() {
+export default function Starfall() {
   const canvas = document.getElementById('canvas')
+
   new Starback(canvas, {
     width: document.body.clientWidth,
     height: document.body.clientHeight,
@@ -14,4 +15,6 @@ export default function showStars() {
     randomOpacity: true,
     quantity: 20,
   })
+
+  return true
 }

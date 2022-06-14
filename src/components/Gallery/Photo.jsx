@@ -1,37 +1,49 @@
 import React, { useState, useRef } from 'react'
 import { useIntersection } from '../../js/useIntersection'
-import Loading from './Loading'
+import { useApiContext } from '../../context/ApiContext'
+import Spinner from './Spinner'
 
-export default function Photo({ photo, acc }) {
-  const [isInView, setIsInView] = useState(false)
+export default function Photo({ data: { id, albumID, small, width, height } }) {
+  const { state, acc } = useApiContext()
+  const [src, setSrc] = useState()
   const [loading, setLoading] = useState(true)
   const imgRef = useRef()
 
+  // Calculate photo height based on original photo width and column width setting
+  const arHeight = (state.column * height) / width
+  const style = {
+    height: `${arHeight}px`,
+  }
+
+  // Control when photo is visible
   useIntersection(imgRef, () => {
-    setIsInView(true)
-    setLoading(true)
+    // setIsInView(true)
+    setSrc(small)
   })
 
+  const _onClick = () => {
+    acc({ type: 'SET', albumID, photoID: id })
+  }
+
+  // Hide Spinner just when img is completlely loaded
+  const _onLoad = () => {
+    setLoading(false)
+  }
+
   return (
-    <div ref={imgRef} className='GalleryPhoto'>
+    <div ref={imgRef} className='Photo' style={style}>
       <img
-        width={photo.width}
-        className='GalleryPhoto__img'
+        width={width}
+        height={height}
+        className='Photo__img'
         style={{
-          aspectRatio: `${photo.width} / ${photo.height}`,
-          ...(loading && { opacity: 0 }),
+          opacity: loading ? 0 : 1,
         }}
-        src={isInView ? photo.small : null}
-        onLoad={() => setLoading(false)}
-        onClick={() =>
-          acc({
-            type: 'SET_PHOTO',
-            albumID: photo.albumID,
-            photoID: photo.id,
-          })
-        }
+        src={src}
+        onLoad={_onLoad}
+        onClick={_onClick}
       />
-      {isInView && loading && <Loading />}
+      <Spinner showif={loading} />
     </div>
   )
 }

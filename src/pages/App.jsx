@@ -3,7 +3,7 @@ import Logo from '../components/Logo'
 
 import coverImg from '../img/mordisco-club-people.jpg'
 
-export default function Home() {
+export default function App() {
   return (
     <div className='Home h-full'>
       <div className='relative z-20 w-full h-full flex items-center justify-center'>

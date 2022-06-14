@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function AlbumCover({ album }) {
+export default function CoverSlider({ album }) {
   const PHOTOS = album.photos
   const TOTAL = PHOTOS.length
 
@@ -60,13 +60,13 @@ export default function AlbumCover({ album }) {
   }, [turn, isHover])
 
   return (
-    <div className='AlbumCover' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <div className='Cover' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div className={`transition-opacity ${transitionDurationClass} ${aClass}`}>
-        <img className='AlbumCover__img' src={srcA} alt='Album' />
+        <img className='Cover__img' src={srcA} alt='Album' />
       </div>
 
       <div className={`transition-opacity ${transitionDurationClass} ${bClass}`}>
-        <img className='AlbumCover__img' src={srcB} alt='Album' />
+        <img className='Cover__img' src={srcB} alt='Album' />
       </div>
     </div>
   )

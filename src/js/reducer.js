@@ -12,7 +12,7 @@
   - si es `set` pinta un error en consola y provoca un error throw new Error()
 */
 
-import { isNum, isEmpty, setArrIndex } from './utils'
+import { isNum, isEmpty, setArrIndex, cutRandom } from './utils'
 import { urlAlbum, urlPhoto } from './urlPush'
 
 // Show error log in console and return the error dupla [true, {}]
@@ -51,10 +51,10 @@ const getPhoto = (state, acc) => {
 }
 
 const actions = {
-  INIT: (state, acc) => {
-    if (isEmpty(acc.albums)) throw new Error('INIT: albums isEmpty')
+  INIT: (state, _) => {
+    if (isEmpty(state.albums)) throw new Error('INIT: albums isEmpty')
 
-    return { ...state, albums: acc.albums, success: true }
+    return { ...state, success: true }
   },
 
   // Select Album or Photo
@@ -86,12 +86,12 @@ const actions = {
     return { ...state, album: album[1], photo: photo[1] }
   },
 
-  MODAL_CLOSE: (state, _acc) => {
+  MODAL_CLOSE: (state, _) => {
     urlAlbum(state.album.id)
     return { ...state, photo: {} }
   },
 
-  NEXT_PHOTO: (state, _acc) => {
+  NEXT_PHOTO: (state, _) => {
     let id = state.photo.id + 1
     if (id >= state.album.photos.length) return state
 
@@ -100,13 +100,18 @@ const actions = {
     return actions.SET_PHOTO(state, { albumID: state.album.id, photoID: id })
   },
 
-  PREV_PHOTO: (state, _acc) => {
+  PREV_PHOTO: (state, _) => {
     let id = state.photo.id - 1
     if (id < 0) return state
 
     urlPhoto(state.album.id, id)
 
     return actions.SET_PHOTO(state, { albumID: state.album.id, photoID: id })
+  },
+
+  UPDATE_PHRASE: (state, _) => {
+    if (state.phrases.length === 0) return state
+    return { ...state, phrase: cutRandom(state.phrases) }
   },
 }
 
