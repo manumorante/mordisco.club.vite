@@ -12,7 +12,7 @@ export default function PhotoBig({ photo }) {
         src={photo.big}
         alt='Photo'
       />
-      <Controls albumID={photo.albumID} />
+      <Controls photo={photo} />
     </div>
   )
 }
