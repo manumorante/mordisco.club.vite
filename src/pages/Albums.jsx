@@ -7,7 +7,7 @@ export default function Albums() {
   const albums = state.albums.slice().reverse()
 
   return (
-    <section className='Albums max-w-xl mx-6 sm:mx-auto flex flex-col gap-8'>
+    <section className='Albums max-w-xl mx-6 sm:mx-auto flex flex-col gap-8 opacity-0 animate-fade-in'>
       {albums.map((album) => (
         <AlbumCard key={album.id} album={album} />
       ))}

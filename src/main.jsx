@@ -6,6 +6,8 @@ import App from './App'
 import Header from './components/Header'
 import Spinner from './components/Spinner'
 const Starfall = lazy(() => import('./components/Starfall'))
+
+import './css/Spinner.css'
 import './css/index.css'
 
 ReactDOM.render(
