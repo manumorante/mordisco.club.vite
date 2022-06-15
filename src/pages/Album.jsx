@@ -1,11 +1,10 @@
-// Tener en cuenta isMobile
-// <Masonry items={album.photos} columnGutter={24} columnWidth={288} overscanBy={5} render={PhotoMasonry} />
-
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../js/ApiContext'
-import Photo from '../components/Photo.jsx'
 import PhotoBig from '../components/PhotoBig'
+
+const Simple = lazy(() => import('../components/ListSimple'))
+const Masonry = lazy(() => import('../components/ListMasonry'))
 
 export default function Album() {
   const { albumID, photoID } = useParams()
@@ -18,11 +17,9 @@ export default function Album() {
     <>
       <PhotoBig photo={album.photos[photoID]} />
 
-      <div className='Album mx-6 grid landscape:grid-cols-2 gap-7'>
-        {album.photos.map((photo) => (
-          <Photo key={photo.id} photo={photo} />
-        ))}
-      </div>
+      <Suspense fallback={null}>
+        {state.isMobile ? <Simple photos={album.photos} /> : <Masonry photos={album.photos} />}
+      </Suspense>
     </>
   )
 }

@@ -1,6 +1,6 @@
 // https://lodash.com/
 
-export const isMobile = window.innerWidth < 768
+export const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 export const isLength = (value) => !isNaN(value) && value >= 0
 
