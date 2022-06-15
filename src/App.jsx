@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Page from './Page'
+import Page from './components/Page'
 import Header from './components/Header'
 
 export default function App() {

@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react'
-import Spinner from './components/Spinner'
+import Spinner from './Spinner'
 
 const PAGES = {
-  Home: lazy(() => import('./pages/Home')),
-  Albums: lazy(() => import('./pages/Albums')),
-  Album: lazy(() => import('./pages/Album')),
+  Home: lazy(() => import('../pages/Home')),
+  Albums: lazy(() => import('../pages/Albums')),
+  Album: lazy(() => import('../pages/Album')),
 }
 
 export default function Page({ page = 'Home' }) {
