@@ -2,9 +2,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import './Logo.css';
 @import './Spinner.css';
-@import './Gallery.css';
 @import './Modal.css';
 
 @layer base {
@@ -18,7 +16,7 @@
   }
 
   .App {
-    @apply h-full px-6
+    @apply h-full
     /* Para que quede por encima del fondo de `canvas` */
     relative z-10;
   }

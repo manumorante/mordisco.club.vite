@@ -2,8 +2,9 @@ import React from 'react'
 
 export default function Logo() {
   return (
-    <a href='/photos' className='Logo'>
+    <div className='w-40'>
       <svg
+        className='w-full h-full'
         fill='none'
         width='208'
         height='36'
@@ -23,6 +24,6 @@ export default function Logo() {
           <path d='m199.235 24.1331c.405-.0631.648-.2264.648-.6162v-.0344c0-.2064-.049-.3497-.141-.4586-.19-.1749-.594-.2093-1.284-.2093h-1.957v1.3529h2.001c.284 0 .515-.0086.733-.0344z' />
         </g>
       </svg>
-    </a>
+    </div>
   )
 }

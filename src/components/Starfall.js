@@ -7,7 +7,7 @@ export default function Starfall() {
     width: document.body.clientWidth,
     height: document.body.clientHeight,
     type: 'line',
-    frequency: 400,
+    frequency: 100,
     slope: { x: -1, y: 10 },
     directionX: 2,
     speed: 30,

@@ -1,15 +1,11 @@
-import React, { useEffect, lazy, Suspense } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
 import { isEmpty } from '../js/utils'
-import { Masonry } from 'masonic'
 
-import Logo from '../components/Logo'
 import Albums from '../components/Gallery/Albums'
-import Photo from '../components/Gallery/Photo'
+import Gallery from '../components/Gallery'
 import Modal from '../components/Gallery/Modal'
-
-const Starfall = lazy(() => import('../components/Starfall'))
 
 export default function Photos() {
   const { state, acc } = useApiContext()
@@ -24,27 +20,9 @@ export default function Photos() {
 
   return (
     <div className='Photos'>
-      <Logo />
-
-      {isEmpty(state.album) ? (
-        <Albums albums={state.albums} acc={acc} />
-      ) : (
-        <Masonry
-          items={state.album.photos}
-          columnGutter={24}
-          columnWidth={state.column}
-          overscanBy={5}
-          render={Photo}
-        />
-      )}
+      {isEmpty(state.album) ? <Albums albums={state.albums} acc={acc} /> : <Gallery album={state.album} />}
 
       <Modal photo={state.photo} acc={acc} />
-
-      <Logo />
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <Starfall />
-      </Suspense>
     </div>
   )
 }
