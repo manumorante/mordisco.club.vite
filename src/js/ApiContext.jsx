@@ -1,33 +1,26 @@
-import React, { useEffect, useContext, createContext, useReducer } from 'react'
-import { isMobile } from '../js/utils'
-import { reducer } from '../js/reducer'
+import React, { useContext, createContext, useState } from 'react'
+import { isMobile } from './utils'
 import albums from '/public/data/albums.json'
 import phrases from '/public/data/phrases.json'
-
-const initialState = {
-  // App
-  success: false,
-  isMobile: isMobile,
-
-  // Photos
-  albums: albums.albums,
-  album: {},
-  photo: {},
-  column: 288,
-
-  // Phrases
-  phrases: phrases.phrases,
-  phrase: {}, // { text:, author: }
-}
 
 const apiContext = createContext()
 
 const ApiContext = ({ children }) => {
-  const [state, acc] = useReducer(reducer, initialState)
+  if (albums.length === 0) {
+    console.log('🟥 No albums found')
+    return false
+  }
 
-  useEffect(() => acc({ type: 'INIT' }), [])
+  const [state] = useState(() => {
+    return {
+      success: true,
+      isMobile: isMobile,
+      albums: albums.albums,
+      phrases: phrases.phrases,
+    }
+  })
 
-  return <apiContext.Provider value={{ state, acc }}>{children}</apiContext.Provider>
+  return <apiContext.Provider value={{ state }}>{children}</apiContext.Provider>
 }
 
 export const useApiContext = () => useContext(apiContext)

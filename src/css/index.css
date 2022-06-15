@@ -2,19 +2,13 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './Photo.css';
+
 @layer base {
   html,
   body,
   #root {
     @apply relative h-full;
-  }
-
-  .Photo {
-    @apply relative block bg-neutral-900/50;
-  }
-
-  .Photo .img {
-    @apply transition-opacity duration-2000;
   }
 
   .no-scroll {

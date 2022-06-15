@@ -1,19 +1,18 @@
-import React, { lazy, Suspense } from 'react'
-import Spinner from './components/Spinner.jsx'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Page from './Page'
+import Header from './components/Header'
 
-const PAGES = {
-  Home: lazy(() => import('./pages/Home')),
-  Albums: lazy(() => import('./pages/Albums')),
-  Album: lazy(() => import('./pages/Album')),
-}
-
-export default function App({ page = 'Home' }) {
-  const Page = PAGES[page]
-  if (!Page) return <div>Page `{page}` not found</div>
-
+export default function App() {
   return (
-    <Suspense fallback={<Spinner />}>
-      <Page />
-    </Suspense>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Page page='Home' />} />
+        <Route path='/photos/:albumID/:photoID' element={<Page page='Album' />} />
+        <Route path='/photos/:albumID' element={<Page page='Album' />} />
+        <Route path='/photos' element={<Page page='Albums' />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
