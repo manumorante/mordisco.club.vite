@@ -14,7 +14,7 @@ export default function Photo({ photo }) {
   })
 
   return (
-    <Link className='Photo relative' to={`/photos/${photo.albumID}/${photo.id}`} ref={imgRef}>
+    <Link className='Photo relative opacity-0 animate-fade-in' to={`/photos/${photo.albumID}/${photo.id}`} ref={imgRef}>
       <img
         width={photo.width}
         height={photo.height}
