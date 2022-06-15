@@ -1,5 +1,5 @@
 import React from 'react'
-import { useApiContext } from '../context/ApiContext'
+import { useApiContext } from '../js/ApiContext'
 import AlbumCard from '../components/AlbumCard'
 
 export default function Albums() {

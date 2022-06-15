@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useApiContext } from '../../context/ApiContext'
+import { useApiContext } from '../../js/ApiContext'
 import { isEmpty } from '../../js/utils'
 
 export default function Phrase() {

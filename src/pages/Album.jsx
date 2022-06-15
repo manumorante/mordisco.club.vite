@@ -3,24 +3,22 @@
 
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useApiContext } from '../context/ApiContext'
+import { useApiContext } from '../js/ApiContext'
 import Photo from '../components/Photo.jsx'
 import PhotoBig from '../components/PhotoBig'
 
 export default function Album() {
   const { albumID, photoID } = useParams()
   const { state } = useApiContext()
+
   const album = state.albums[albumID]
-
   if (!album) return <div>Album not found</div>
-
-  const photoBig = album.photos[photoID]
 
   return (
     <>
-      <PhotoBig photo={photoBig} />
+      <PhotoBig photo={album.photos[photoID]} />
 
-      <div className='Album mx-6 sm:mx-auto flex flex-col gap-6'>
+      <div className='Album mx-6 grid landscape:grid-cols-2 gap-7'>
         {album.photos.map((photo) => (
           <Photo key={photo.id} photo={photo} />
         ))}

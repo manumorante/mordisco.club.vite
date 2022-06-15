@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ApiContext from './context/ApiContext'
+import ApiContext from './js/ApiContext'
 import App from './App'
 import Header from './components/Header'
 import Spinner from './components/Spinner'

@@ -3,25 +3,18 @@
 @import 'tailwindcss/utilities';
 
 @import './Spinner.css';
-@import './Modal.css';
 
 @layer base {
   html,
-  body {
-    @apply h-full;
-  }
-
-  body {
-    @apply bg-black text-slate-500;
-  }
-
+  body,
   .App {
-    @apply h-full
-    /* Para que quede por encima del fondo de `canvas` */
-    relative z-10;
+    @apply relative h-full;
   }
 
-  .no-scroll body {
-    @apply fixed inset-0 overflow-hidden;
+  .no-scroll {
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 }
