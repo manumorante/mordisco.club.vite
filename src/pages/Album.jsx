@@ -5,6 +5,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../context/ApiContext'
 import Photo from '../components/Photo.jsx'
+import PhotoBig from '../components/PhotoBig'
 
 export default function Album() {
   const { albumID, photoID } = useParams()
@@ -13,24 +14,16 @@ export default function Album() {
 
   if (!album) return <div>Album not found</div>
 
-  const photo = album.photos[photoID]
-
-  document.documentElement.classList.toggle('modal-is-open', !!photo)
+  const photoBig = album.photos[photoID]
 
   return (
     <>
-      {/* Big photo to new component */}
-      {photo && (
-        <div className='Photo absolute z-30 inset-0 bg-black/50'>
-          <img className='w-full h-full object-contain' src={photo.big} alt='Photo' />
-        </div>
-      )}
-      {/* Big photo to new component */}
+      <PhotoBig photo={photoBig} />
 
       <div className='Album mx-6 sm:mx-auto flex flex-col gap-6'>
-        {album.photos.map((photo) => {
-          return <Photo key={photo.id} photo={photo} />
-        })}
+        {album.photos.map((photo) => (
+          <Photo key={photo.id} photo={photo} />
+        ))}
       </div>
     </>
   )

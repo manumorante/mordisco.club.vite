@@ -21,7 +21,7 @@
     relative z-10;
   }
 
-  .modal-is-open body {
-    @apply overflow-hidden;
+  .no-scroll body {
+    @apply fixed inset-0 overflow-hidden;
   }
 }
