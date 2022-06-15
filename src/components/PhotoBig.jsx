@@ -1,5 +1,5 @@
 import React from 'react'
-import Controls from './Controls/Controls'
+import Controls from './controls/Controls'
 
 export default function PhotoBig({ photo }) {
   document.body.classList.toggle('no-scroll', !!photo)

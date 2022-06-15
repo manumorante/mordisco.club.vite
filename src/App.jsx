@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Page from './components/Page'
-import Header from './components/Header'
+import Page from './components/app/Page'
+import Header from './components/app/Header'
 
 export default function App() {
   return (

@@ -3,7 +3,3 @@
   sm:transition-transform sm:duration-300 sm:ease-in-out
   sm:hover:-translate-y-1;
 }
-
-.Photo .img {
-  @apply transition-opacity duration-2000;
-}
