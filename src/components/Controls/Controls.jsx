@@ -1,13 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useKeys } from '../../js/useKeys'
 import { XIcon } from '@heroicons/react/solid'
 import Arrow from './Arrow'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 
 export default function Controls({ photo }) {
-  const prevUrl = `/photos/${photo.albumID}/${photo.id - 1}`
-  const nextUrl = `/photos/${photo.albumID}/${photo.id + 1}`
+  const navigate = useNavigate()
+
+  const albumUrl = `/photos/${photo.albumID}`
+  const prevUrl = `${albumUrl}/${photo.id - 1}`
+  const nextUrl = `${albumUrl}/${photo.id + 1}`
+
+  useKeys({
+    ArrowLeft: () => navigate(prevUrl),
+    ArrowRight: () => navigate(nextUrl),
+    Escape: () => navigate(albumUrl),
+  })
 
   return (
     <div className='Controls absolute inset-0 z-20'>
