@@ -1,17 +1,14 @@
 import React from 'react'
 import Controls from './controls/Controls'
+import Img from './Img'
 
-export default function PhotoBig({ photo }) {
+export default function PhotoBig({ photo, onLoad }) {
   document.body.classList.toggle('no-scroll', !!photo)
   if (!photo) return null
 
   return (
     <div className='PhotoBig fixed z-30 inset-0 flex justify-center items-center bg-black/60'>
-      <img
-        className='relative z-10 portrait:w-full portrait:h-auto landscape:h-full landscape:w-auto'
-        src={photo.big}
-        alt='Photo'
-      />
+      <Img src={photo.big} onLoad={onLoad} />
       <Controls photo={photo} />
     </div>
   )

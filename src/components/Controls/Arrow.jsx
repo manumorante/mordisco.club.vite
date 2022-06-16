@@ -1,8 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
-export default function Arrow({ children, left, right, url }) {
+export default function Arrow({ children, left, right, onClick }) {
   const linkClass = classNames('group absolute top-14 bottom-0 w-1/4 transition-colors flex items-center', {
     'left-0': left,
     'right-0': right,
@@ -18,8 +17,8 @@ export default function Arrow({ children, left, right, url }) {
   })
 
   return (
-    <Link to={url} className={linkClass}>
+    <div className={linkClass} onClick={onClick}>
       <div className={iconClass}>{children}</div>
-    </Link>
+    </div>
   )
 }

@@ -1,25 +1,34 @@
 import React, { useState, useRef } from 'react'
 import { useIntersection } from '../js/useIntersection'
-import Spinner from './app/Spinner'
 import classNames from 'classnames'
 
-export default function Img({ src: srcParam, width, height, className }) {
-  const [src, setSrc] = useState()
-  const imgRef = useRef()
+export default function Img({ src, width, height, className, preload = false }) {
   const [loading, setLoading] = useState(true)
+  const [imgSrc, setImgSrc] = useState()
+  const imgRef = useRef()
 
   useIntersection(imgRef, () => {
-    setSrc(srcParam)
+    setImgSrc(src)
   })
 
-  const imgClass = classNames('transition-opacity duration-2000', {
-    'opacity-0': loading,
-  })
+  const handleLoad = () => {
+    setLoading(false)
+  }
+
+  const imgClasses = classNames(
+    { 'is-loaded': !loading, 'opacity-0': loading },
+    'transition-opacity duration-500',
+    className
+  )
 
   return (
-    <div className={className} ref={imgRef}>
-      <img className={imgClass} width={width} height={height} src={src} onLoad={() => setLoading(false)} />
-      <Spinner showif={loading} />
-    </div>
+    <img
+      ref={imgRef}
+      className={imgClasses}
+      width={width}
+      height={height}
+      src={preload ? src : imgSrc}
+      onLoad={handleLoad}
+    />
   )
 }

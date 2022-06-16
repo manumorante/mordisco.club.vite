@@ -1,7 +1,6 @@
-import React, { lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../js/ApiContext'
-import PhotoBig from '../components/PhotoBig'
 import Carousel from '../components/Carousel'
 
 const Simple = lazy(() => import('../components/ListSimple'))
@@ -16,8 +15,8 @@ export default function Album() {
 
   return (
     <>
-      <PhotoBig photo={album.photos[photoID]} />
-      {/* <Carousel album={album} photoID={photoID} /> */}
+      {/* <PhotoBig photo={currentPhoto} onLoad={() => setPhotoBigLoaded(true)} /> */}
+      <Carousel album={album} photoID={photoID} />
 
       <Suspense fallback={null}>
         {state.isMobile ? <Simple photos={album.photos} /> : <Masonry photos={album.photos} />}

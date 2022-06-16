@@ -6,7 +6,7 @@ export function useKeys(data) {
       useEffect(() => {
         const handleKeyDown = (e) => {
           if ([key].includes(e.key)) {
-            callback(e)
+            callback(callback)
           }
         }
         window.addEventListener('keydown', handleKeyDown)
