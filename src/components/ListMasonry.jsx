@@ -4,8 +4,8 @@ import Photo from './Photo'
 
 export default function ListMasonry({ photos }) {
   return (
-    <div className='ListMasonry mx-6'>
-      <Masonry items={photos} columnGutter={24} columnWidth={288} overscanBy={5} render={Photo} />
+    <div className='ListMasonry max-w-7xl mx-auto'>
+      <Masonry items={photos} columnGutter={24} columnWidth={410} overscanBy={5} render={Photo} />
     </div>
   )
 }

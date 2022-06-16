@@ -35,7 +35,6 @@ export default function ListSimple({ photos }) {
   return (
     <div className='ListSimple mx-3 grid grid-cols-6 gap-2' style={{ gridAutoRows: '15vw' }}>
       {photos.map((photo, i) => {
-        console.log(stepClass())
         const className = classNames(stepClass(i), 'relative')
 
         return (

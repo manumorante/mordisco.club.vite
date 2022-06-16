@@ -4,6 +4,7 @@ import { useApiContext } from '../js/ApiContext'
 import Carousel from '../components/Carousel'
 import CarouselMobile from '../components/CarouselMobile'
 import List from '../components/List'
+import { isMobile } from '../js/utils'
 
 export default function Album() {
   const { albumID, photoID } = useParams()
@@ -16,8 +17,8 @@ export default function Album() {
   return (
     <>
       <List photos={album.photos} />
-      {/* {isOpen && <Carousel album={album} photoID={photoID} />} */}
-      {isOpen && <CarouselMobile album={album} photoID={photoID} />}
+      {isOpen && !isMobile && <Carousel album={album} photoID={photoID} />}
+      {isOpen && isMobile && <CarouselMobile album={album} photoID={photoID} />}
     </>
   )
 }

@@ -6,33 +6,28 @@ import { ArrowRightIcon } from '@heroicons/react/outline'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 
 export default function Controls({ onNext, onPrev, onClose }) {
+  
   useKeys({
-    ArrowLeft: onPrev && onPrev,
-    ArrowRight: onNext && onNext,
-    Escape: onClose && onClose,
+    ArrowLeft: onPrev,
+    ArrowRight: onNext,
+    Escape: onClose,
   })
 
   return (
     <div className='Controls fixed inset-0 z-50'>
-      {onPrev && (
-        <Arrow left onClick={onPrev}>
-          <ArrowLeftIcon />
-        </Arrow>
-      )}
+      <Arrow left onClick={onPrev}>
+        <ArrowLeftIcon />
+      </Arrow>
 
-      {onNext && (
-        <Arrow right onClick={onNext}>
-          <ArrowRightIcon />
-        </Arrow>
-      )}
+      <Arrow right onClick={onNext}>
+        <ArrowRightIcon />
+      </Arrow>
 
-      {onClose && (
-        <div
-          onClick={onClose}
-          className='absolute top-2 right-2 p-3 rounded-full sm:hover:bg-white/10 cursor-pointer'>
-          <XIcon className='w-8 h-8 text-white' />
-        </div>
-      )}
+      <div
+        onClick={onClose}
+        className='absolute top-2 right-2 p-3 rounded-full sm:hover:bg-white/10 cursor-pointer'>
+        <XIcon className='w-8 h-8 text-white' />
+      </div>
     </div>
   )
 }
