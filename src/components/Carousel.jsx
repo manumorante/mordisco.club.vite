@@ -30,17 +30,9 @@ export default function Carousel({ album, photoID, onLoad }) {
 
   return (
     <div ref={listRef} className='Carousel fixed z-30 w-screen h-screen inset-0 py-10 bg-black/80 overflow-hidden'>
-      <div className='List absolute top-0 left-0 flex' style={style}>
+      <div className='List absolute top-0 left-0 flex transition-transform' style={style}>
         {album.photos.map((photo) => {
-          const preload = photo.id === currentPhoto + 1 || photo.id === currentPhoto - 1
-          return (
-            <Img
-              key={photo.id}
-              src={photo.big}
-              preload={true}
-              className='w-screen h-screen p-10 object-contain flex-shrink-0'
-            />
-          )
+          return <Img key={photo.id} src={photo.big} className='w-screen h-screen sm:p-10 object-contain flex-shrink-0' />
         })}
       </div>
 

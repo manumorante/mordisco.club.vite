@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../js/ApiContext'
 import Carousel from '../components/Carousel'
@@ -15,7 +15,6 @@ export default function Album() {
 
   return (
     <>
-      {/* <PhotoBig photo={currentPhoto} onLoad={() => setPhotoBigLoaded(true)} /> */}
       <Carousel album={album} photoID={photoID} />
 
       <Suspense fallback={null}>

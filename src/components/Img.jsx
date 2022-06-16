@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useIntersection } from '../js/useIntersection'
 import classNames from 'classnames'
 
-export default function Img({ src, width, height, className, preload = false }) {
+export default function Img({ src, width, height, className }) {
   const [loading, setLoading] = useState(true)
   const [imgSrc, setImgSrc] = useState()
   const imgRef = useRef()
@@ -21,14 +21,5 @@ export default function Img({ src, width, height, className, preload = false }) 
     className
   )
 
-  return (
-    <img
-      ref={imgRef}
-      className={imgClasses}
-      width={width}
-      height={height}
-      src={preload ? src : imgSrc}
-      onLoad={handleLoad}
-    />
-  )
+  return <img ref={imgRef} className={imgClasses} width={width} height={height} src={imgSrc} onLoad={handleLoad} />
 }

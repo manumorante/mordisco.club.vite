@@ -9,7 +9,7 @@ export default function AlbumCard({ album }) {
     <Link
       to={`/photos/${album.id}`}
       className='rounded-md p-4 sm:p-8 bg-neutral-900/80 sm:hover:bg-neutral-900 transition-colors cursor-pointer'>
-      <img src={album.photos[0].small} alt='Cover' />
+      <img className='mb-4' src={album.photos[0].small} alt='Cover' />
 
       <div className='flex justify-between items-center text-neutral-600'>
         <span className='font-light text-xl capitalize'>{date.toLocaleDateString('es-ES', { month: 'long' })}</span>

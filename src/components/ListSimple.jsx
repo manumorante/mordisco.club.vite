@@ -9,7 +9,7 @@ export default function ListSimple({ photos }) {
           key={photo.id}
           data={{
             id: photo.id,
-            albumID: photo.id,
+            albumID: photo.albumID,
             small: photo.small,
             width: photo.width,
             height: photo.height,
