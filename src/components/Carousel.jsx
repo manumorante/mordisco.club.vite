@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import Logo from './app/Logo'
@@ -9,9 +9,8 @@ export default function Carousel({ album, photoID, onLoad }) {
   if (!album || !photoID) return null
 
   const ALBUM_URL = `/photos/${album.id}`
-  const TOTAL = album.photos.length
 
-  const carouselRef = React.createRef()
+  const carouselRef = createRef()
   const navigate = useNavigate()
 
   // This loading if for the current big photo
@@ -27,7 +26,7 @@ export default function Carousel({ album, photoID, onLoad }) {
   }, [photoID])
 
   const handleNext = () => {
-    if (currentPhoto === TOTAL - 1) return false
+    if (currentPhoto === album.photos.length - 1) return false
 
     const photoID = currentPhoto + 1
     goToPhoto(photoID)
@@ -62,8 +61,8 @@ export default function Carousel({ album, photoID, onLoad }) {
     })
   }
 
-  const handleLoad = (id) => {
-    if (currentPhoto === id) {
+  const handleLoad = (id, current) => {
+    if (current === id) {
       setLoading(false)
       onLoad && onLoad()
     }
@@ -77,13 +76,20 @@ export default function Carousel({ album, photoID, onLoad }) {
   )
 
   return (
-    <div ref={carouselRef} className='Carousel fixed z-30 w-screen h-screen inset-0 py-10 bg-black/80 overflow-hidden'>
-      <div style={carouselStyle} className='absolute z-20 top-0 left-0 flex transition-transform duration-500'>
+    <div
+      ref={carouselRef}
+      className='Carousel fixed z-30 w-screen h-screen inset-0 py-10 bg-black/80 overflow-hidden'>
+      <div
+        style={carouselStyle}
+        className='absolute z-20 top-0 left-0 flex transition-transform duration-500'>
         {album.photos.map((photo) => (
           <Img
             key={photo.id}
+            photoID={photo.id}
             src={photo.big}
-            onLoad={() => handleLoad(photo.id)}
+            currentPhoto={currentPhoto}
+            currentLoading={loading}
+            onLoad={() => handleLoad(photo.id, currentPhoto)}
             className='w-screen h-screen sm:p-10 object-contain flex-shrink-0'
           />
         ))}
@@ -94,9 +100,16 @@ export default function Carousel({ album, photoID, onLoad }) {
       </div>
 
       <div className='Blured fixed z-10 -inset-6 bg-black animate-fade-in'>
-        <img className='w-full h-full object-cover blur-lg opacity-30' src={album.photos[currentPhoto].small} />
+        <img
+          className='w-full h-full object-cover blur-lg opacity-30'
+          src={album.photos[currentPhoto].small}
+        />
       </div>
-      <Controls onNext={() => handleNext()} onPrev={() => handlePrev()} onClose={() => handleClose()} />
+      <Controls
+        onNext={() => handleNext()}
+        onPrev={() => handlePrev()}
+        onClose={() => handleClose()}
+      />
     </div>
   )
 }
