@@ -27,7 +27,11 @@ export default function Album() {
       {isOpen && <Carousel album={album} photoID={photoID} onLoad={() => setCarouselLoading(false)} />}
 
       <Suspense fallback={null}>
-        {state.isMobile ? <Simple photos={album.photos} /> : <Masonry photos={album.photos} />}
+        {!isOpen && !carouselLoading && state.isMobile ? (
+          <Simple photos={album.photos} />
+        ) : (
+          <Masonry photos={album.photos} />
+        )}
       </Suspense>
     </>
   )

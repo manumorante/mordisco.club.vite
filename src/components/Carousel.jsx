@@ -8,16 +8,6 @@ import Img from './Img'
 export default function Carousel({ album, photoID, onLoad }) {
   if (!album || !photoID) return null
 
-  // Block scroll (move to hook)
-  useEffect(() => {
-    document.body.classList.add('no-scroll')
-    console.log('mounting carousel')
-    return () => {
-      console.log('unmounting')
-      document.body.classList.remove('no-scroll')
-    }
-  }, [])
-
   const ALBUM_URL = `/photos/${album.id}`
   const TOTAL = album.photos.length
 

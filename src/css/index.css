@@ -11,10 +11,5 @@
     @apply relative min-h-full;
   }
 
-  .no-scroll {
-    touch-action: none;
-    -webkit-overflow-scrolling: none;
-    overflow: hidden;
-    overscroll-behavior: none;
-  }
+
 }
