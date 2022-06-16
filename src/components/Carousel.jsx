@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import Logo from './app/Logo'
-import Controls from './controls/Controls'
+import Controls from './control/Controls'
 import Img from './Img'
 
 export default function Carousel({ album, photoID, onLoad }) {
