@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function Logo() {
+export default function Logo({ className = 'w-40' }) {
   return (
-    <div className='w-40'>
+    <div className={className}>
       <svg
         className='w-full h-full'
         fill='none'

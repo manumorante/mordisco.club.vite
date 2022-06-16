@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import classNames from 'classnames'
+import Logo from './app/Logo'
 import Controls from './controls/Controls'
 import Img from './Img'
 
 export default function Carousel({ album, photoID, onLoad }) {
-  // El Carousel se pinta si hay photoID y bloquea el scroll
-  document.body.classList.toggle('no-scroll', !!photoID)
-
   if (!album || !photoID) return null
+
+  // Block scroll (move to hook)
+  useEffect(() => {
+    document.body.classList.add('no-scroll')
+    console.log('mounting carousel')
+    return () => {
+      console.log('unmounting')
+      document.body.classList.remove('no-scroll')
+    }
+  }, [])
 
   const ALBUM_URL = `/photos/${album.id}`
   const TOTAL = album.photos.length
 
   const carouselRef = React.createRef()
   const navigate = useNavigate()
+
+  // This loading if for the current big photo
+  const [loading, setLoading] = useState(true)
   const [currentPhoto, setCurrentPhoto] = useState(parseInt(photoID))
   const [carouselStyle, setCarouselStyle] = useState({
     transform: 'translateX(0)',
@@ -60,14 +72,40 @@ export default function Carousel({ album, photoID, onLoad }) {
     })
   }
 
+  const handleLoad = (id) => {
+    if (currentPhoto === id) {
+      setLoading(false)
+      onLoad && onLoad()
+    }
+  }
+
+  const headerClass = classNames(
+    'fixed top-0 pt-8 w-full flex justify-center z-[11] transition-transform duration-500',
+    {
+      '-translate-y-full': loading,
+    }
+  )
+
   return (
     <div ref={carouselRef} className='Carousel fixed z-30 w-screen h-screen inset-0 py-10 bg-black/80 overflow-hidden'>
-      <div style={carouselStyle} className='List absolute top-0 left-0 flex transition-transform duration-500'>
+      <div style={carouselStyle} className='absolute z-20 top-0 left-0 flex transition-transform duration-500'>
         {album.photos.map((photo) => (
-          <Img key={photo.id} src={photo.big} className='w-screen h-screen sm:p-10 object-contain flex-shrink-0' />
+          <Img
+            key={photo.id}
+            src={photo.big}
+            onLoad={() => handleLoad(photo.id)}
+            className='w-screen h-screen sm:p-10 object-contain flex-shrink-0'
+          />
         ))}
       </div>
 
+      <div className={headerClass}>
+        <Logo className='h-7' />
+      </div>
+
+      <div className='Blured fixed z-10 -inset-6 bg-black animate-fade-in'>
+        <img className='w-full h-full object-cover blur-lg opacity-30' src={album.photos[currentPhoto].small} />
+      </div>
       <Controls onNext={() => handleNext()} onPrev={() => handlePrev()} onClose={() => handleClose()} />
     </div>
   )

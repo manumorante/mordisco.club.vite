@@ -13,7 +13,7 @@ export default function Controls({ onNext, onPrev, onClose }) {
   })
 
   return (
-    <div className='Controls fixed inset-0 z-20'>
+    <div className='Controls fixed inset-0 z-50'>
       <Arrow left onClick={onPrev}>
         <ArrowLeftIcon />
       </Arrow>
@@ -22,7 +22,7 @@ export default function Controls({ onNext, onPrev, onClose }) {
         <ArrowRightIcon />
       </Arrow>
 
-      <div onClick={onClose} className='block absolute top-2 right-2 p-3 rounded-full sm:hover:bg-white/10'>
+      <div onClick={onClose} className='absolute top-2 right-2 p-3 rounded-full sm:hover:bg-white/10 cursor-pointer'>
         <XIcon className='w-8 h-8 text-white' />
       </div>
     </div>

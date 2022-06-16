@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useIntersection } from '../js/useIntersection'
 import classNames from 'classnames'
 
-export default function Img({ src, width, height, className }) {
+export default function Img({ src, width, height, className, onLoad }) {
   const [loading, setLoading] = useState(true)
   const [imgSrc, setImgSrc] = useState()
   const imgRef = useRef()
@@ -13,6 +13,7 @@ export default function Img({ src, width, height, className }) {
 
   const handleLoad = () => {
     setLoading(false)
+    onLoad && onLoad()
   }
 
   const imgClasses = classNames(
