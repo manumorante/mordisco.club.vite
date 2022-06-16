@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useApiContext } from '../js/ApiContext'
 import Carousel from '../components/Carousel'
+import CarouselMobile from '../components/CarouselMobile'
 import List from '../components/List'
 
 export default function Album() {
@@ -15,7 +16,8 @@ export default function Album() {
   return (
     <>
       <List photos={album.photos} />
-      {isOpen && <Carousel album={album} photoID={photoID} />}
+      {/* {isOpen && <Carousel album={album} photoID={photoID} />} */}
+      {isOpen && <CarouselMobile album={album} photoID={photoID} />}
     </>
   )
 }

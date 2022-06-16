@@ -1,6 +1,7 @@
 import React, { useEffect, useState, createRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
+import { bodyScroll } from '../js/bodyScroll'
 import Logo from './app/Logo'
 import Controls from './control/Controls'
 import Img from './Img'
@@ -20,10 +21,17 @@ export default function Carousel({ album, photoID, onLoad }) {
     transform: 'translateX(0)',
   })
 
-  // Show the proper photo from the url
+  // When enter by url
   useEffect(() => {
     goToPhoto(parseInt(photoID))
   }, [photoID])
+
+  useEffect(() => {
+    bodyScroll(false)
+    return () => {
+      bodyScroll(true)
+    }
+  }, [])
 
   const handleNext = () => {
     if (currentPhoto === album.photos.length - 1) return false
