@@ -1,78 +1,97 @@
 {
-  "phrases": [
+  "quotes": [
     {
+      "type": "quote",
       "text": "Lorem ipsum dolor sit amet",
       "author": "John Doe"
     },
     {
+      "type": "quote",
       "text": "Consectetur adipiscing elit",
       "author": "Mary Jane"
     },
     {
+      "type": "quote",
       "text": "Sed do eiusmod tempor incididunt",
       "author": "Tom Smith"
     },
     {
+      "type": "quote",
       "text": "Ut labore et dolore magna aliqua",
       "author": "Sara Lee"
     },
     {
+      "type": "quote",
       "text": "Excepteur sint occaecat cupidatat non proident",
       "author": "John Doe"
     },
     {
+      "type": "quote",
       "text": "Sunt in culpa qui officia deserunt mollit anim id est laborum",
       "author": "Mary Jane"
     },
     {
+      "type": "quote",
       "text": "Lorem ipsum dolor sit amet",
       "author": "Tom Smith"
     },
     {
+      "type": "quote",
       "text": "Consectetur adipiscing elit",
       "author": "Sara Lee"
     },
     {
+      "type": "quote",
       "text": "Sed do eiusmod tempor incididunt",
       "author": "John Doe"
     },
     {
+      "type": "quote",
       "text": "Ut labore et dolore magna aliqua",
       "author": "Mary Jane"
     },
     {
+      "type": "quote",
       "text": "Excepteur sint occaecat cupidatat non proident",
       "author": "Tom Smith"
     },
     {
+      "type": "quote",
       "text": "Sunt in culpa qui officia deserunt mollit anim id est laborum",
       "author": "Sara Lee"
     },
     {
+      "type": "quote",
       "text": "Lorem ipsum dolor sit amet",
       "author": "John Doe"
     },
     {
+      "type": "quote",
       "text": "Consectetur adipiscing elit",
       "author": "Mary Jane"
     },
     {
+      "type": "quote",
       "text": "Sed do eiusmod tempor incididunt",
       "author": "Tom Smith"
     },
     {
+      "type": "quote",
       "text": "Ut labore et dolore magna aliqua",
       "author": "Sara Lee"
     },
     {
+      "type": "quote",
       "text": "Excepteur sint occaecat cupidatat non proident",
       "author": "John Doe"
     },
     {
+      "type": "quote",
       "text": "Sunt in culpa qui officia deserunt mollit anim id est laborum",
       "author": "Mary Jane"
     },
     {
+      "type": "quote",
       "text": "Lorem ipsum dolor sit amet",
       "author": "Tom Smith"
     }

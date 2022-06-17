@@ -14,9 +14,15 @@ export default function Album() {
 
   if (!album) return <div>Album not found</div>
 
+  const photos = album.photos
+  const quotes = state.quotes
+
+  if(photos.length === 0) return <div>No photos found</div>
+  if(quotes.length === 0) return <div>No quotes found</div>
+
   return (
     <>
-      <List photos={album.photos} phrases={state.phrases} />
+      <List photos={photos} quotes={quotes} />
       {isOpen && !isMobile && <Carousel album={album} photoID={photoID} />}
       {isOpen && isMobile && <CarouselMobile album={album} photoID={photoID} />}
     </>

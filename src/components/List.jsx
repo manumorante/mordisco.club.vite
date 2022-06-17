@@ -1,16 +1,29 @@
 import React, { lazy, Suspense } from 'react'
 import { isMobile } from '../js/utils'
-const Simple = lazy(() => import('./ListSimple'))
-const Masonry = lazy(() => import('./ListMasonry'))
+const ListSimple = lazy(() => import('./ListSimple'))
+const ListMasonry = lazy(() => import('./ListMasonry'))
 
-export default function List({ photos, phrases }) {
-  const step = Math.floor(photos.length / phrases.length)
+export default function List({ photos, quotes }) {
+  // const step = Math.floor(photos.length / quotes.length)
+  const step = 10
 
   const items = []
   let count = 0
   photos.map((photo, i) => {
     if (i % step === 0) {
-      items.push(phrases[count])
+      const quote = quotes[count]
+
+      const obj = {
+        ...quote,
+        id: 0,
+        albumID: 1,
+        big: '',
+        width: 400,
+        height: 300,
+        small: '',
+      }
+
+      items.push(obj)
       count++
     }
 
@@ -19,7 +32,7 @@ export default function List({ photos, phrases }) {
 
   return (
     <Suspense fallback={null}>
-      {isMobile ? <Simple photos={photos} /> : <Masonry items={items} />}
+      {isMobile ? <ListSimple photos={photos} /> : <ListMasonry items={items} />}
     </Suspense>
   )
 }

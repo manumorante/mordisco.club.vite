@@ -1,7 +1,7 @@
 import React, { useContext, createContext, useState } from 'react'
 import { isMobile } from './utils'
 import albums from '/public/data/albums.json'
-import phrases from '/public/data/phrases.json'
+import quotes from '/public/data/quotes.json'
 
 const apiContext = createContext()
 
@@ -16,7 +16,7 @@ const ApiContext = ({ children }) => {
       success: true,
       isMobile: isMobile,
       albums: albums.albums,
-      phrases: phrases.phrases,
+      quotes: quotes.quotes,
     }
   })
 

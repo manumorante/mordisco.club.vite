@@ -45,12 +45,13 @@ function createAlbum(root, folder, albumID) {
       minHeight = size.height < minHeight ? size.height : minHeight
 
       photos.push({
-        big: (path + '/' + file).replace('public', ''),
-        small: (path + '/s/' + file).replace('public', ''),
+        type: 'photo',
         id: photoID,
         albumID: albumID,
         width: size.width,
         height: size.height,
+        big: (path + '/' + file).replace('public', ''),
+        small: (path + '/s/' + file).replace('public', ''),
       })
       photoID = photoID + 1
     }

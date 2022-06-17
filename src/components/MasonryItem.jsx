@@ -1,8 +1,17 @@
 import React from 'react'
 import Photo from './Photo'
-import Phrase from './Phrase'
+import Quote from './Quote'
+
+const itemTypes = {
+  photo: Photo,
+  quote: Quote,
+}
 
 export default function MasonryItem({ ...props }) {
-  if (props.data.text) return <Phrase text={props.data.text} author={props.data.author} />
-  return <Photo {...props} />
+  const type = props.data?.type
+  const types = Object.keys(itemTypes)
+  if (!types.includes(type)) return null
+
+  const Item = itemTypes[type]
+  return <Item {...props} />
 }
