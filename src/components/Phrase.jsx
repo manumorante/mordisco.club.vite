@@ -1,25 +1,10 @@
-import React, { useEffect } from 'react'
-import { useApiContext } from '../../js/ApiContext'
-import { isEmpty } from '../../js/utils'
+import React from 'react'
 
-export default function Phrase() {
-  // Load phrases from Context
-  const { state, acc } = useApiContext()
-  console.log(state.phrase)
-
-  // Check if there are any phrases
-  if (isEmpty(state.phrases)) return null
-
-  // If yes, randomly select one (and delete it from the list)
-  useEffect(() => acc({ type: 'UPDATE_PHRASE' }), [])
-
-  // Check if there is a phrase to display
-  if (isEmpty(state.phrase)) return null
-
+export default function Phrase({ text, author }) {
   return (
-    <div className='Phrase mb-10'>
-      <p className='text-2xl'>{state.phrase.text}</p>
-      <p>{state.phrase.author}</p>
+    <div className='Phrase py-32 px-20 transition-all bg-black sm:hover:bg-neutral-900/50'>
+      <p className='text-5xl mb-4'>{text}</p>
+      <p className='text-xl'>{author}</p>
     </div>
   )
 }

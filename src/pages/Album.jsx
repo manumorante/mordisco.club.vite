@@ -16,7 +16,7 @@ export default function Album() {
 
   return (
     <>
-      <List photos={album.photos} />
+      <List photos={album.photos} phrases={state.phrases} />
       {isOpen && !isMobile && <Carousel album={album} photoID={photoID} />}
       {isOpen && isMobile && <CarouselMobile album={album} photoID={photoID} />}
     </>
