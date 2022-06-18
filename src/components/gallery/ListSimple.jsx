@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import Photo from './Photo'
-import Img from './Img'
+import Img from '../app/Img'
 
 export default function ListSimple({ photos }) {
   const stepClass = (i) => {

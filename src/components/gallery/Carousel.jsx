@@ -1,10 +1,10 @@
 import React, { useEffect, useState, createRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
-import { bodyScroll } from '../js/bodyScroll'
-import Logo from './app/Logo'
+import { bodyScroll } from '../../js/bodyScroll'
 import Controls from './control/Controls'
-import Img from './Img'
+import Logo from '../app/Logo'
+import Img from '../app/Img'
 
 export default function Carousel({ album, photoID, onLoad }) {
   if (!album || !photoID) return null

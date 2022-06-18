@@ -1,6 +1,6 @@
 import React from 'react'
 import Photo from './Photo'
-import Quote from './Quote'
+import Quote from '../Quote'
 
 const itemTypes = {
   photo: Photo,

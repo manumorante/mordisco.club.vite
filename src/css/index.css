@@ -6,10 +6,11 @@
 
 @layer base {
   html,
-  body,
+  body {
+    @apply h-full;
+  }
+
   #root {
     @apply relative min-h-full;
   }
-
-
 }

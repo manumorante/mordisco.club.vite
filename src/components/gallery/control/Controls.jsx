@@ -1,9 +1,9 @@
 import React from 'react'
-import { useKeys } from '../../js/useKeys'
+import { useKeys } from '../../../js/useKeys'
 import { XIcon } from '@heroicons/react/solid'
-import Arrow from './Arrow'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
+import Arrow from './Left'
 
 export default function Controls({ onNext, onPrev, onClose }) {
   

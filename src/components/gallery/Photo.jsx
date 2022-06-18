@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Img from './Img'
+import Img from '../app/Img'
 
 export default function Photo({ data: { id, albumID, small, width, height } }) {
   return (

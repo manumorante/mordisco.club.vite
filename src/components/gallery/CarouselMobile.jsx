@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Close from './control/Close'
-import Img from './Img'
+import Img from '../app/Img'
 
 export default function CarouselMobile({ album, photoID }) {
   if (!album || isNaN(photoID)) return null

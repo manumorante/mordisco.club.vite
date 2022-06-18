@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { isMobile } from '../js/utils'
+import { isMobile } from '../../js/utils'
 const ListSimple = lazy(() => import('./ListSimple'))
 const ListMasonry = lazy(() => import('./ListMasonry'))
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useIntersection } from '../js/useIntersection'
+import { useIntersection } from '../../js/useIntersection'
 import classNames from 'classnames'
 
 export default function Img({

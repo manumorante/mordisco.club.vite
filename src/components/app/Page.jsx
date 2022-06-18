@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react'
+// import ErrorBoundary from './ErrorBoundary'
 import Spinner from './Spinner'
 
 const PAGES = {
@@ -13,7 +14,9 @@ export default function Page({ page = 'Home' }) {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <PageComponent />
+      {/* <ErrorBoundary> */}
+        <PageComponent />
+      {/* </ErrorBoundary> */}
     </Suspense>
   )
 }
